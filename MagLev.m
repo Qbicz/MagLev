@@ -39,6 +39,7 @@ y = [1.8094; 0.0; 2.4712];
 max_przelaczen = 3;
 Tall = []; Yall = [];
 for przelaczenie = 2:max_przelaczen
+    % TODO: ustawienie aktualnego warunku poczatkowego w rk4.m
     [T,Y] = rk4(@rhs,tau(przelaczenie-1),tau(przelaczenie),y, u(przelaczenie-1), m);
     Tall = [Tall T];
     Yall = [Yall Y]; % TODO: preallocate
