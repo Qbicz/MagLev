@@ -5,9 +5,8 @@ tau = [];
 
 % chwile prze³¹czenia
 tau(1) = 0;
-tau(2) = 0.3;
-tau(3) = 0.5;
-
+tau(2) = 0.9;
+tau(3) = 1.4;
 
 % parametry
 vmax = 9.56;
@@ -21,14 +20,31 @@ Tau = 0.0107;
 umax = (vmax*k - is)/(eta*Tau)
 umin = (vmin*k - is)/(eta*Tau)
 
+u(1) = umin;
+u(2) = umax;
+
 i=1;
 step = 0.01;
 % iloœæ kroków
 m = (tau(i+1) - tau(i))/step;
 
-u = 6.5;
-%y = [;]
-y = [1.8;0;2.5];
-[T,Y] = rk4(@rhs,tau(1),tau(2),y, u, m);
+% Nominalny punkt pracy ^x1 = 14mm
+% skalowanie ^x1 = alpha * x1
+alpha = 0.00773746;
+% u = 6.4;
+% punkt pracy
+y = [1.8094; 0.0; 2.4712];
 
-plot(T,Y());
+% rozwiazywanie równañ przy prze³¹czanym sterowaniu
+max_przelaczen = 3;
+T = []; Y = [];
+for przelaczenie = 2:max_przelaczen
+    [T,Y] = rk4(@rhs,tau(przelaczenie-1),tau(przelaczenie),y, u, m);
+    
+end
+
+plot(T,Y(1,:)*alpha);
+title('Odleg³oœæ œrodka sfery od cewki elektromagnesu');
+
+% teraz do realizacji rozwi¹zywanie równañ miêdzy kolejnymi chwilami
+% prze³¹czenia
