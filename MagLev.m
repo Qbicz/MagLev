@@ -45,8 +45,8 @@ for przelaczenie = 2:max_przelaczen
     Yall = [Yall Y]; % TODO: preallocate
 end
 
-plot(Tall,Yall(1,:)*alpha);
-title('Odleg³oœæ œrodka sfery od cewki elektromagnesu');
+plot(Tall,Yall(1,:)*alpha*1000);
+title('Odleg³oœæ œrodka sfery od cewki elektromagnesu [mm]');
 
 % teraz do realizacji rozwi¹zywanie równañ miêdzy kolejnymi chwilami
 % prze³¹czenia
