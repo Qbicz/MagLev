@@ -4,9 +4,8 @@ clear all; close all;
 tau = [];
 
 % chwile prze³¹czenia
-tau(1) = 0;
-tau(2) = 0.9;
-tau(3) = 1.4;
+tau = [0, 0.2, 0.4, 1, 2]
+max_przelaczen = 5;
 
 % parametry
 vmax = 9.56;
@@ -20,8 +19,7 @@ Tau = 0.0107;
 umax = (vmax*k - is)/(eta*Tau)
 umin = (vmin*k - is)/(eta*Tau)
 
-u(1) = umin;
-u(2) = umax;
+u = [umin, umax, umin, umax];
 
 i=1;
 step = 0.01;
@@ -33,20 +31,29 @@ m = (tau(i+1) - tau(i))/step;
 alpha = 0.00773746;
 % u = 6.4;
 % punkt pracy
-y = [1.8094; 0.0; 2.4712];
+y0 = [1.8094; 0.0; 2.4712];
 
 % rozwiazywanie równañ przy prze³¹czanym sterowaniu
-max_przelaczen = 3;
 Tall = []; Yall = [];
 for przelaczenie = 2:max_przelaczen
-    % TODO: ustawienie aktualnego warunku poczatkowego w rk4.m
-    [T,Y] = rk4(@rhs,tau(przelaczenie-1),tau(przelaczenie),y, u(przelaczenie-1), m);
+    % ustawienie aktualnego warunku poczatkowego
+    if przelaczenie > 2
+       y0 = Y(:,length(Y)) ;
+    end
+    [T,Y] = rk4(@rhs,tau(przelaczenie-1),tau(przelaczenie),y0, u(przelaczenie-1), m);
     Tall = [Tall T];
     Yall = [Yall Y]; % TODO: preallocate
 end
-
+hold on;
 plot(Tall,Yall(1,:)*alpha*1000);
 title('Odleg³oœæ œrodka sfery od cewki elektromagnesu [mm]');
+
+%u_plot = 
+%plot();
+
+for i = 1:max_przelaczen
+    plot([tau(i) tau(i)],get(gca,'ylim'));
+end
 
 % teraz do realizacji rozwi¹zywanie równañ miêdzy kolejnymi chwilami
 % prze³¹czenia

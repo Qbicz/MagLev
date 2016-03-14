@@ -1,4 +1,4 @@
-function [T,Y] = rk4(f,a,b,y,u,m)
+function [T,Y] = rk4(f,a,b,y0,u,m)
 %---------------------------------------------------------------------------
 %RK4   Runge-Kutta solution for y' = f(t,y) with y(a) = ya.
 % Sample call
@@ -30,7 +30,7 @@ h = (b - a)/m;
 T = zeros(1,m+1);
 Y = zeros(3,m+1);
 T(1) = a;
-Y(:,1) = y;
+Y(:,1) = y0;
 for j=1:m,
   tj = T(j);
   yj = Y(:,j);
