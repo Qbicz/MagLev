@@ -4,8 +4,8 @@ clear all; close all;
 tau = [];
 
 % chwile prze³¹czenia
-tau = [0, 0.2, 0.4, 1, 2]
-max_przelaczen = 5;
+tau = [0, 0.2, 0.4, 1, 1.3 ,1.7,1.8,2.3,2.6, 3,3.1]
+max_przelaczen = length(tau);
 
 % parametry
 vmax = 9.56;
@@ -19,7 +19,14 @@ Tau = 0.0107;
 umax = (vmax*k - is)/(eta*Tau)
 umin = (vmin*k - is)/(eta*Tau)
 
-u = [umin, umax, umin, umax];
+u=[];
+for i=1:max_przelaczen-1
+    if mod(i,2)==0
+        u(i)=umax;
+    else
+        u(i)=umin;
+    end
+end
 
 i=1;
 step = 0.01;
@@ -44,16 +51,33 @@ for przelaczenie = 2:max_przelaczen
     Tall = [Tall T];
     Yall = [Yall Y]; % TODO: preallocate
 end
+subplot(2,1,1)
 hold on;
+grid on
 plot(Tall,Yall(1,:)*alpha*1000);
 title('Odleg³oœæ œrodka sfery od cewki elektromagnesu [mm]');
 
-%u_plot = 
-%plot();
+% for i = 1:max_przelaczen
+%     plot([tau(i) tau(i)],get(gca,'ylim'));
+% end
 
-for i = 1:max_przelaczen
-    plot([tau(i) tau(i)],get(gca,'ylim'));
+P=[];
+ p=2;
+for i=1:length(Tall)
+      if Tall(i)< tau(p)
+          if p(mod(p,2)==0)
+              P(i)= umin;
+          else
+              P(i)= umax;
+          end
+      else
+          P(i)= P(i-1);
+          p=p+1;
+      end
 end
+subplot(2,1,2)
+plot(Tall,P)
+title('Funkcja prze³¹czaj¹ca')
 
 % teraz do realizacji rozwi¹zywanie równañ miêdzy kolejnymi chwilami
 % prze³¹czenia
