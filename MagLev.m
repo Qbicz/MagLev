@@ -28,10 +28,7 @@ for i=1:max_przelaczen-1
     end
 end
 
-i=1;
 step = 0.01;
-% iloœæ kroków
-m = (tau(i+1) - tau(i))/step;
 
 % Nominalny punkt pracy ^x1 = 14mm
 % skalowanie ^x1 = alpha * x1
@@ -41,20 +38,40 @@ alpha = 0.00773746;
 y0 = [1.8094; 0.0; 2.4712];
 
 % rozwiazywanie równañ przy prze³¹czanym sterowaniu
-Tall = []; Yall = [];
+Tall = []; Yall = []; Yprzel=[];
 for przelaczenie = 2:max_przelaczen
     % ustawienie aktualnego warunku poczatkowego
     if przelaczenie > 2
        y0 = Y(:,length(Y)) ;
     end
+    % iloœæ kroków
+    m = (tau(przelaczenie) - tau(przelaczenie-1))/step;
     [T,Y] = rk4(@rhs,tau(przelaczenie-1),tau(przelaczenie),y0, u(przelaczenie-1), m);
     Tall = [Tall T];
     Yall = [Yall Y]; % TODO: preallocate
+    Yprzel=[Yprzel Yall(:,end)];
 end
+Tt=[];
+Psit=[];
+ro=10;
+psiT=-ro*(Yall(:,end)-14);
+for i = 1:max_przelaczen-1
+    numer_p= max_przelaczen-i;
+       x0 = Yprzel(:,numer_p) ;   
+      if i>1
+          psiT=Psit(:,end);
+      end
+    m = (tau(numer_p+1) - tau(numer_p))/step;
+    [T,Psi] = rk4(@rhs_sprz,tau(numer_p+1),tau(numer_p),psiT, x0, m);
+    Tt = [Tt T];
+    Psit = [Psit Psi]; 
+end
+
+
 subplot(2,1,1)
 hold on;
 grid on
-plot(Tall,Yall(1,:)*alpha*1000);
+plot(Tall,Yall(:,:)*alpha*1000);
 title('Odleg³oœæ œrodka sfery od cewki elektromagnesu [mm]');
 
 % for i = 1:max_przelaczen
@@ -79,5 +96,7 @@ subplot(2,1,2)
 plot(Tall,P)
 title('Funkcja prze³¹czaj¹ca')
 
+figure(2)
+plot(Tt, Psit)
 % teraz do realizacji rozwi¹zywanie równañ miêdzy kolejnymi chwilami
 % prze³¹czenia
