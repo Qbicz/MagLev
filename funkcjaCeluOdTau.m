@@ -5,6 +5,10 @@ function J = funkcjaCeluOdTau(Tfinish, tau, xPracy)
 %% -- Rozwiazanie rownan -- mozna zamknac w osobnej funkcji dla czytelnosci
 max_przelaczen = length(tau);
 
+% !!!
+% struktura params z argumentami wejsciowymi
+%
+
 % parametry
 vmax = 9.56;
 vmin = 5.56;
@@ -47,7 +51,8 @@ Yprzel=[];  %ostatni Y w ka¿dym prze³¹czeniu
 for przelaczenie = 2:max_przelaczen
     % ustawienie aktualnego warunku poczatkowego
     if przelaczenie > 2
-       y0 = Y(:,length(Y));
+       [yN,yM] = size(Y);
+       y0 = Y(:,yM);
     end
     % iloœæ kroków
     m = (tau(przelaczenie) - tau(przelaczenie-1))/step;
@@ -64,7 +69,11 @@ grid on
 plot(Tall,Yall(:,:)*alpha*1000);
 title('Odleg³oœæ œrodka sfery od cewki elektromagnesu [mm]');
 
-%wektor do wyplotowania prze³¹czeñ
+% !!!
+% Kazik to ponizej:
+%
+
+wektor do wyplotowania prze³¹czeñ
 P=[];
  p=2;
 for i=1:length(Tall)
@@ -78,7 +87,7 @@ for i=1:length(Tall)
           P(i)= P(i-1);
           p=p+1;
       end
-end
+ end
 subplot(2,1,2)
 hold on;
 plot(Tall,P)

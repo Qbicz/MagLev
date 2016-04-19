@@ -31,7 +31,7 @@ for i=1:max_przelaczen-1
 end
 
 %przyjêty krok
-step = 0.0001;
+step = 0.001;
 
 % Nominalny punkt pracy ^x1 = 14mm
 % skalowanie ^x1 = alpha * x1
@@ -151,10 +151,15 @@ J_tau = funkcjaCeluOdTau(Tfinish, tau, y0)
 %A = ones(max_przelaczen, max_przelaczen);
 %b = ones(max_przelaczen, 1);
 
+%% Test
 tau0 = tau;
 A=[-1, 0, 0;
     1, -1, 0;
     0, 1, -1];
 b = [0; 0; 0];
 % trzeba podac tez gradient, opcja optimset Optimization
-tauOptim = fmincon(@(taufmincon)funkcjaCeluOdTau(Tfinish, taufmincon, y0), tau0, A, b); % tauMin, tauMax);
+options = optimoptions('fmincon', 'MaxIter', 1000)
+
+tauOptim = fmincon(@(taufmincon)funkcjaCeluOdTau(Tfinish, taufmincon, y0), tau0, A, b,[],[],[],[],[], options); % tauMin, tauMax);
+%tauOptim = fmincon(@funkcjaCeluOdTau, tau0, A, b); % tauMin, tauMax);
+

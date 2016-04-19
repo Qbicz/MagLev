@@ -25,6 +25,7 @@ function [T,Y] = rk4(f,a,b,y0,u,m)
 % Algorithm 9.4 (Runge-Kutta Method of Order 4).
 % Section	9.5, Runge-Kutta Methods, Page 460
 %---------------------------------------------------------------------------
+m = floor(m);
 
 h = (b - a)/m;
 T = zeros(1,m+1);
