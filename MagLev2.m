@@ -1,12 +1,11 @@
 %% RK4 dla systemu MagLev
 clear all; close all;
 
-tau = [];
-
 % chwile prze³¹czenia
 %tau = [0, 0.2, 0.4, 1, 1.3 ,1.7,1.8,2.3,2.6, 3,3.1,3.3,3.8];
 tau = [0, 0.02, 0.05]
 max_przelaczen = length(tau);
+Tfinish = tau(length(tau));
 
 % parametry
 vmax = 9.56;
@@ -14,11 +13,11 @@ vmin = 5.56;
 is = 1.506;
 k = 0.297;
 eta = 10.287;
-Tau = 0.0107;
+TauMagnet = 0.0107;
 
 % umin, umax na podstawie vmin, vmax
-umax = (vmax*k - is)/(eta*Tau);
-umin = (vmin*k - is)/(eta*Tau);
+umax = (vmax*k - is)/(eta*TauMagnet);
+umin = (vmin*k - is)/(eta*TauMagnet);
 
 % sporz¹dzenie wektora sterowañ
 u=[];
@@ -42,6 +41,12 @@ alpha = 0.00773746;
 
 x_zadane = 18;
 y0 = [x_zadane/(alpha*1000); 0.0; 2.4712];
+
+% struktura przekazywana do funkcji celu
+params = struct('umax', umax, 'umin', umin, ...
+                'step', step, 'alpha', alpha, ...
+                'xOperating', y0, ... punkt pracy
+                'Tfinish', Tfinish)
 
 % rozwiazywanie równañ przy prze³¹czanym sterowaniu
 Tall = [];  %wektor czasu
@@ -138,14 +143,13 @@ plot(Tty, Ytyl*alpha*1000)
 grid on
 
 %% Funkcja celu
-Tfinish = tau(length(tau));
-J = funkcjaCeluJ(Tfinish, Yall, y0)
+J = funkcjaCeluOdX(Tfinish, Yall, y0)
 
 %% Minimalizacja wzd³u¿ wektora tau - prze³¹czeñ
 
 %tauMin = [0, 0.03, 0.05, 0.09];
 %tauMax = [0.01, 0.04, 0.07, 0.1];
-J_tau = funkcjaCeluOdTau(Tfinish, tau, y0)
+J_tau = funkcjaCeluOdTau(tau, params)
 
 % minimalizujemy funkcje celu w zaleznosci od tau
 %A = ones(max_przelaczen, max_przelaczen);
@@ -158,8 +162,8 @@ A=[-1, 0, 0;
     0, 1, -1];
 b = [0; 0; 0];
 % trzeba podac tez gradient, opcja optimset Optimization
-options = optimoptions('fmincon', 'MaxIter', 1000)
+options = optimoptions('fmincon', 'MaxIter', 10000);
 
-tauOptim = fmincon(@(taufmincon)funkcjaCeluOdTau(Tfinish, taufmincon, y0), tau0, A, b,[],[],[],[],[], options); % tauMin, tauMax);
+tauOptim = fmincon(@(taufmincon)funkcjaCeluOdTau(taufmincon, params), tau0, A, b,[],[],[],[],[], options); % tauMin, tauMax);
 %tauOptim = fmincon(@funkcjaCeluOdTau, tau0, A, b); % tauMin, tauMax);
 

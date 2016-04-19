@@ -1,7 +1,7 @@
-function J = funkcjaCeluJ(T, x, xPracy)
+function J = funkcjaCeluOdX(T, x, xPracy)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
-ro = 1;
+ro = 100;
 [N,M] = size(x);
 
 %% tu musi byæ rozwiazywanie x w zaleznosci od tau
