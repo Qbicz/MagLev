@@ -1,162 +1,126 @@
-%% RK4 dla systemu MagLev
+%% MagLev
 clear all; close all;
 
 % chwile prze³¹czenia
-%tau = [0, 0.2, 0.4, 1, 1.3 ,1.7,1.8,2.3,2.6, 3,3.1,3.3,3.8];
-tau = [0, 0.02, 0.05]
-max_przelaczen = length(tau);
-Tfinish = tau(length(tau));
+czasy_przel = [0, 0.02, 0.05];
+lb_przel = length(czasy_przel); %iloœæ prze³¹czeñ
+ost_przel = czasy_przel(end); %ostatnie prze³¹cznie
 
-% parametry
-vmax = 9.56;
-vmin = 5.56;
-is = 1.506;
-k = 0.297;
-eta = 10.287;
-TauMagnet = 0.0107;
+% parametry do przeskalowania 
+vmax = 9.56; %maksymalne napiêcie steruj¹ce
+vmin = 5.56; %minimalne napiêcie steruj¹ce
+is = 1.506; %sta³y pr¹d p³yn¹cy przez cewkê
+k = 0.297; %wspó³czynnik wzmocnienia sterownika pr¹du
+ni = 10.28701901522286; %wspó³czynnik skalowania
+tau = 0.0107; %sta³a czasowa elektromagnesu
+alpha = 0.00773746; % parametr elektromagnesu [m] -> skalowanie ^x1 = alpha * x1
 
 % umin, umax na podstawie vmin, vmax
-umax = (vmax*k - is)/(eta*TauMagnet);
-umin = (vmin*k - is)/(eta*TauMagnet);
+umax = (vmax*k - is)/(ni*tau); %maksymalne sterowanie
+umin = (vmin*k - is)/(ni*tau); %minimalne sterowanie
+
+step = 0.001; %przyjêty krok
 
 % sporz¹dzenie wektora sterowañ
-u=[];
-for i=1:max_przelaczen-1
-    if mod(i,2)==0
-        u(i)=umax;
-    else
-        u(i)=umin;
-    end
-end
+wektor_ster = []; %wektor sterowañ
+wektor_ster = wekt_ster(lb_przel, umax, umin);
 
-%przyjêty krok
-step = 0.001;
+nom_pkt = [1.8094; 0.0; 2.4712]; % Nominalny punkt pracy ^x1 = 14mm
+%y0 = [x_zadane/(alpha*1000); 0.0; 2.4712];
 
-% Nominalny punkt pracy ^x1 = 14mm
-% skalowanie ^x1 = alpha * x1
-alpha = 0.00773746;
-% u = 6.4;
-% punkt pracy
-%y0 = [1.8094; 0.0; 2.4712];
 
-x_zadane = 18;
-y0 = [x_zadane/(alpha*1000); 0.0; 2.4712];
 
-% struktura przekazywana do funkcji celu
+
+% struktura parametrów wykorzystywana przy wywo³aniu funkcji celu
 params = struct('umax', umax, 'umin', umin, ...
                 'step', step, 'alpha', alpha, ...
-                'xOperating', y0, ... punkt pracy
-                'Tfinish', Tfinish)
+                'xOperating', nom_pkt, ... punkt pracy
+                'Tfinish', ost_przel,...
+                'lb_przel', lb_przel,...
+                'czasy_przel', czasy_przel,...
+                'wektor_ster', wektor_ster );
 
+            
+            
+            
 % rozwiazywanie równañ przy prze³¹czanym sterowaniu
-Tall = [];  %wektor czasu
-Yall = [];  %wszystkie wartoœci Y - [odleg³oœæ, prêdkoœæ, przyspieszenie]
-Yprzel=[];  %ostatni Y w ka¿dym prze³¹czeniu
-for przelaczenie = 2:max_przelaczen
-    % ustawienie aktualnego warunku poczatkowego
-    if przelaczenie > 2
-       y0 = Y(:,length(Y)) ;
-    end
-    % iloœæ kroków
-    m = (tau(przelaczenie) - tau(przelaczenie-1))/step;
-    [T,Y] = rk4(@rhs,tau(przelaczenie-1),tau(przelaczenie),y0, u(przelaczenie-1), floor(m));
-    Tall = [Tall T];
-    Yall = [Yall Y]; % TODO: preallocate
-    Yprzel=[Yprzel Yall(:,end)]; 
-end
+T = [];  %wektor czasu w którym nastêpuj¹ prze³¹czenia
+Y = [];  %wszystkie wartoœci wyjœcia - [po³o¿enie, prêdkoœæ, przyspieszenie]
+Yprzel = [];  %ostatni Y w ka¿dym prze³¹czeniu
+
+[T, Y, Yprzel]= rozw_rown(params);
 
 %wykres po³o¿enia kulki
 subplot(2,1,1)
 hold on;
 grid on
-plot(Tall,Yall(:,:)*alpha*1000);
+plot(T,Y(1,:)*alpha*1000); %przeskalowanie po³o¿enia do [mm]
 title('Odleg³oœæ œrodka sfery od cewki elektromagnesu [mm]');
 
-%wektor do wyplotowania prze³¹czeñ
-P=[];
- p=2;
-for i=1:length(Tall)
-      if Tall(i)< tau(p)
-          if p(mod(p,2)==0)
-              P(i)= umin;
-          else
-              P(i)= umax;
-          end
-      else
-          P(i)= P(i-1);
-          p=p+1;
-      end
-end
-subplot(2,1,2)
-plot(Tall,P)
-title('Funkcja prze³¹czaj¹ca')
+% WYWO£ANIE FUNKCJI OD KAZIKA-----------------------------------
+% %wektor do wyplotowania prze³¹czeñ
+% P=[];
+%  p=2;
+% for i=1:length(T)
+%       if T(i)< czasy_przel(p)
+%           if p(mod(p,2)==0)
+%               P(i)= umin;
+%           else
+%               P(i)= umax;
+%           end
+%       else
+%           P(i)= P(i-1);
+%           p=p+1;
+%       end
+% end
+% subplot(2,1,2)
+% plot(T,P)
+% title('Funkcja prze³¹czaj¹ca')
+% KONIEC WYWO£ANIA FUNKCJI OD KAZIKA-------------------
+
 
 
 
 %rozwi¹zywanie równañ sprzê¿onych wstecz
-Tt=[]; %wektor czasu dla rozwi¹zywania wstecz
-Psit=[];    %wartoœci psi z r. sprzê¿onych
-ro=25;  %wspó³czynnik kary
-psiT=-ro*(Yall(:,end)-x_zadane); %psi w chwili koñcowej T
-for i = 1:max_przelaczen-1
-    numer_p= max_przelaczen-i;
-       x0 = Yprzel(:,numer_p) ;   
-      if i>1
-          psiT=Psit(:,end);
-      end
-    m = (tau(numer_p+1) - tau(numer_p))/step;
-    [T,Psi] = rk4(@rhs_sprz,tau(numer_p+1),tau(numer_p),psiT, x0, m);
-    Tt = [Tt T];
-    Psit = [Psit Psi]; 
-end
+T_sprz = [];  %wektor czasu dla rozwi¹zywania wstecz
+Psi = [];     %wartoœci psi z r. sprzê¿onych
+ro = 25;      %wspó³czynnik kary
+psiT = -ro*(Y(:,end)-nom_pkt); %psi w chwili koñcowej T - punkt startowy do rozwi¹zywania równañ w ty³
+
+[T_sprz, Psi] = rozw_wtyl(psiT, Yprzel, params);
 
 % wykres rozwi¹zanych r. sprzê¿onych wstecz
 figure(2)
-plot(Tt, Psit)
+plot(T_sprz, Psi)
 grid on
 
-
-% for i = 1:max_przelaczen
-%     plot([tau(i) tau(i)],get(gca,'ylim'));
-% end
-
-
 %rozwi¹zywanie równañ stanu wstecz (sprawdzenie dzia³ania)
-Tty=[]; %wektor czasu do rozw. r. stanu w ty³
-Ytyl=[];    %wektor wartoœci zm. stanu dla rozw. w ty³
-YT=Yall(:,end); %ostatni punkt z wektora zmiennych stanu rozwi¹zywanych w przód
-for i = 1:max_przelaczen-1
-    numer_p= max_przelaczen-i;
-       x0 = Yprzel(:,numer_p) ;   
-      if i>1
-          YT=Ytyl(:,end);
-      end
-    m = (tau(numer_p+1) - tau(numer_p))/step;
-    [T,Yt] = rk4(@rhs1,tau(numer_p+1),tau(numer_p), YT, u(numer_p), m);
-    Tty = [Tty T];
-    Ytyl = [Ytyl Yt]; 
-end
+T_spr = [];     %wektor czasu do rozw. r. stanu w ty³
+Y_spr = [];     %wektor wartoœci zm. stanu dla rozw. w ty³
+YT = Y(:,end); %ostatni punkt z wektora zmiennych stanu rozwi¹zywanych w przód
+
+[T_spr, Y_spr] = rozw_wtyl_spr(YT, params);
 
 %wykres równañ stanu rozwi¹zanych w ty³
 figure(3)
-plot(Tty, Ytyl*alpha*1000)
+plot(T_spr, Y_spr(1,:)*alpha*1000)
 grid on
 
 %% Funkcja celu
-J = funkcjaCeluOdX(Tfinish, Yall, y0)
+J = funkcjaCeluOdX(ost_przel, Y, y0)
 
-%% Minimalizacja wzd³u¿ wektora tau - prze³¹czeñ
+%% Minimalizacja wzd³u¿ wektora czasy_przel - prze³¹czeñ
 
-%tauMin = [0, 0.03, 0.05, 0.09];
-%tauMax = [0.01, 0.04, 0.07, 0.1];
-J_tau = funkcjaCeluOdTau(tau, params)
+%czasy_przelMin = [0, 0.03, 0.05, 0.09];
+%czasy_przelMax = [0.01, 0.04, 0.07, 0.1];
+J_czasy_przel = funkcjaCeluOdczasy_przel(czasy_przel, params)
 
-% minimalizujemy funkcje celu w zaleznosci od tau
+% minimalizujemy funkcje celu w zaleznosci od czasy_przel
 %A = ones(max_przelaczen, max_przelaczen);
 %b = ones(max_przelaczen, 1);
 
 %% Test
-tau0 = tau;
+czasy_przel0 = czasy_przel;
 A=[-1, 0, 0;
     1, -1, 0;
     0, 1, -1];
@@ -164,6 +128,6 @@ b = [0; 0; 0];
 % trzeba podac tez gradient, opcja optimset Optimization
 options = optimoptions('fmincon', 'MaxIter', 10000);
 
-tauOptim = fmincon(@(taufmincon)funkcjaCeluOdTau(taufmincon, params), tau0, A, b,[],[],[],[],[], options); % tauMin, tauMax);
-%tauOptim = fmincon(@funkcjaCeluOdTau, tau0, A, b); % tauMin, tauMax);
+czasy_przelOptim = fmincon(@(czasy_przelfmincon)funkcjaCeluOdczasy_przel(czasy_przelfmincon, params), czasy_przel0, A, b,[],[],[],[],[], options); % czasy_przelMin, czasy_przelMax);
+%czasy_przelOptim = fmincon(@funkcjaCeluOdczasy_przel, czasy_przel0, A, b); % czasy_przelMin, czasy_przelMax);
 
