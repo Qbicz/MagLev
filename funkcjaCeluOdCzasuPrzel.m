@@ -1,5 +1,5 @@
-function J = funkcjaCeluOdTau(tau, params)
-%funkcjaCeluOdTau - Ta funkcja przyjmuje wektor chwil prze³¹czeñ tau i na
+function J = funkcjaCeluOdCzasuPrzel(tau, params)
+%funkcjaCeluOdCzasuPrzel - Ta funkcja przyjmuje wektor chwil prze³¹czeñ tau i na
 %jego podstawie zwraca wskaznik jakosci. Struktura params agreguje
 %parametry ukladu potrzebne przy optymalizacji.
 %
@@ -7,7 +7,6 @@ function J = funkcjaCeluOdTau(tau, params)
 
 %% -- Rozwiazanie rownan -- mozna zamknac w osobnej funkcji dla czytelnosci
 max_przelaczen = length(tau);
-y0 = params.xOperating;
 
 % sporz¹dzenie wektora sterowañ
 u=[];
@@ -31,7 +30,7 @@ for przelaczenie = 2:max_przelaczen
     end
     % iloœæ kroków
     m = (tau(przelaczenie) - tau(przelaczenie-1))/params.step;
-    [T,Y] = rk4(@rhs,tau(przelaczenie-1),tau(przelaczenie), y0, u(przelaczenie-1), m);
+    [T,Y] = rk4(@rhs,tau(przelaczenie-1),tau(przelaczenie), params.xOperating, u(przelaczenie-1), m);
     Tall = [Tall T];
     Yall = [Yall Y]; % TODO: preallocate
     Yprzel=[Yprzel Yall(:,end)];

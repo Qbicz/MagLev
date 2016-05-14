@@ -2,7 +2,7 @@
 clear all; close all;
 
 % chwile prze³¹czenia
-czasy_przel = [0, 0.02, 0.05];
+czasy_przel = [0, 0.02, 0.05, 0.1, 0.15, 0.2];
 lb_przel = length(czasy_przel); %iloœæ prze³¹czeñ
 ost_przel = czasy_przel(end); %ostatnie prze³¹cznie
 
@@ -22,7 +22,7 @@ umin = (vmin*k - is)/(ni*tau); %minimalne sterowanie
 step = 0.001; %przyjêty krok
 
 % sporz¹dzenie wektora sterowañ
-wektor_ster = []; %wektor sterowañ
+wektor_ster = []; %weñktor sterowa
 wektor_ster = wekt_ster(lb_przel, umax, umin);
 
 nom_pkt = [1.8094; 0.0; 2.4712]; % Nominalny punkt pracy ^x1 = 14mm
@@ -40,8 +40,7 @@ params = struct('umax', umax, 'umin', umin, ...
                 'czasy_przel', czasy_przel,...
                 'wektor_ster', wektor_ster );
 
-            
-            
+                        
             
 % rozwiazywanie równañ przy prze³¹czanym sterowaniu
 T = [];  %wektor czasu w którym nastêpuj¹ prze³¹czenia
@@ -57,28 +56,24 @@ grid on
 plot(T,Y(1,:)*alpha*1000); %przeskalowanie po³o¿enia do [mm]
 title('Odleg³oœæ œrodka sfery od cewki elektromagnesu [mm]');
 
-% WYWO£ANIE FUNKCJI OD KAZIKA-----------------------------------
-% %wektor do wyplotowania prze³¹czeñ
-% P=[];
-%  p=2;
-% for i=1:length(T)
-%       if T(i)< czasy_przel(p)
-%           if p(mod(p,2)==0)
-%               P(i)= umin;
-%           else
-%               P(i)= umax;
-%           end
-%       else
-%           P(i)= P(i-1);
-%           p=p+1;
-%       end
-% end
-% subplot(2,1,2)
-% plot(T,P)
-% title('Funkcja prze³¹czaj¹ca')
-% KONIEC WYWO£ANIA FUNKCJI OD KAZIKA-------------------
 
-
+ %generowanie wektora prze³¹czeñ
+ P=[];
+ p=2;
+ for i=1:length(T)
+     if T(i)< czasy_przel(p)
+         if p(mod(p,2)==0)
+             P(i)= umin;
+         else
+             P(i)= umax;
+         end
+     else
+         P(i)= P(i-1);
+         p=p+1;
+     end
+ end
+%funkcja plotuj¹ca wektor prze³¹czeñ 
+f_plot(T, P); 
 
 
 %rozwi¹zywanie równañ sprzê¿onych wstecz
@@ -107,13 +102,13 @@ plot(T_spr, Y_spr(1,:)*alpha*1000)
 grid on
 
 %% Funkcja celu
-J = funkcjaCeluOdX(ost_przel, Y, y0)
+J = funkcjaCeluOdX(ost_przel, Y, nom_pkt)
 
 %% Minimalizacja wzd³u¿ wektora czasy_przel - prze³¹czeñ
 
 %czasy_przelMin = [0, 0.03, 0.05, 0.09];
 %czasy_przelMax = [0.01, 0.04, 0.07, 0.1];
-J_czasy_przel = funkcjaCeluOdczasy_przel(czasy_przel, params)
+J_czasy_przel = funkcjaCeluOdCzasuPrzel(czasy_przel, params)
 
 % minimalizujemy funkcje celu w zaleznosci od czasy_przel
 %A = ones(max_przelaczen, max_przelaczen);
@@ -121,10 +116,16 @@ J_czasy_przel = funkcjaCeluOdczasy_przel(czasy_przel, params)
 
 %% Test
 czasy_przel0 = czasy_przel;
-A=[-1, 0, 0;
-    1, -1, 0;
-    0, 1, -1];
-b = [0; 0; 0];
+% A=[-1, 0, 0;
+%     1, -1, 0;
+%     0, 1, -1];
+
+rozmiar = length(czasy_przel);
+A = -eye(rozmiar) + ... % diagonalna
+tril(ones(rozmiar),-1) - tril(ones(rozmiar),-2) % poddiagonalna
+
+% b = [0; 0; 0];
+b = zeros(1, rozmiar);
 % trzeba podac tez gradient, opcja optimset Optimization
 options = optimoptions('fmincon', 'MaxIter', 10000);
 
