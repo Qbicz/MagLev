@@ -1,6 +1,6 @@
-Optimization of Control for Magnetic Levitation 
+# Optimization of Control for Magnetic Levitation 
 
-Based on "Optimization algorithms in nonlinear model predictive control" by Piotr Bania
+Based on "Optimization algorithms in nonlinear model predictive control" by Piotr Bania, PhD
 http://home.agh.edu.pl/~pba/
 
 Git bash Portable:
