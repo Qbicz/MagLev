@@ -2,7 +2,7 @@
 clear all; close all;
 
 % chwile prze³¹czenia
-czasy_przel = [0, 0.02, 0.05, 0.1, 0.15, 0.2];
+czasy_przel = [0, 0.01, 0.05]; % , 0.1, 0.15, 0.2];
 lb_przel = length(czasy_przel); %iloœæ prze³¹czeñ
 ost_przel = czasy_przel(end); %ostatnie prze³¹cznie
 
@@ -32,7 +32,7 @@ nom_pkt = [1.8094; 0.0; 2.4712]; % Nominalny punkt pracy ^x1 = 14mm
 % struktura parametrów wykorzystywana przy wywo³aniu funkcji celu
 params = struct('umax', umax, 'umin', umin, ...
                 'step', step, 'alpha', alpha, ...
-                'xOperating', nom_pkt, ... punkt pracy
+                'xOperating', nom_pkt, ... % punkt pracy
                 'Tfinish', ost_przel,...
                 'lb_przel', lb_przel,...
                 'czasy_przel', czasy_przel,...
@@ -41,9 +41,9 @@ params = struct('umax', umax, 'umin', umin, ...
                         
             
 % rozwiazywanie równañ przy prze³¹czanym sterowaniu
-T = [];  %wektor czasu w którym nastêpuj¹ prze³¹czenia
-Y = [];  %wszystkie wartoœci wyjœcia - [po³o¿enie, prêdkoœæ, przyspieszenie]
-Yprzel = [];  %ostatni Y w ka¿dym prze³¹czeniu
+% T = [];  %wektor czasu w którym nastêpuj¹ prze³¹czenia
+% Y = [];  %wszystkie wartoœci wyjœcia - [po³o¿enie, prêdkoœæ, przyspieszenie]
+% Yprzel = [];  %ostatni Y w ka¿dym prze³¹czeniu
 
 [T, Y, Yprzel]= rozw_rown(params);
 
@@ -96,6 +96,7 @@ czasy_przel0 = czasy_przel;
 %     1, -1, 0;
 %     0, 1, -1];
 
+% generacja macierzy ograniczen A i b dla dowolnej wielkosci
 rozmiar = length(czasy_przel);
 A = -eye(rozmiar) + ... % diagonalna
 tril(ones(rozmiar),-1) - tril(ones(rozmiar),-2) % poddiagonalna
@@ -108,3 +109,9 @@ options = optimoptions('fmincon', 'MaxIter', 10000);
 czasy_przelOptim = fmincon(@(czasy_przelfmincon)funkcjaCeluOdCzasuPrzel(czasy_przelfmincon, params), czasy_przel0, A, b,[],[],[],[],[], options); % czasy_przelMin, czasy_przelMax);
 %czasy_przelOptim = fmincon(@funkcjaCeluOdczasy_przel, czasy_przel0, A, b); % czasy_przelMin, czasy_przelMax);
 
+%% zoptymalizowane wartosci
+params.czasy_przel = czasy_przelOptim;
+[T, Y, Yprzel]= rozw_rown(params);
+
+rysujPolozenieIPrzelaczenia(T, Y, alpha, czasy_przelOptim, umin, umax);
+J_optim = funkcjaCeluOdCzasuPrzel(czasy_przelOptim, params)

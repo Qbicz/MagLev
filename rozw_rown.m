@@ -6,7 +6,9 @@ T = [];  %wektor czasu w którym nastêpuj¹ prze³¹czenia
 Y = [];  %wszystkie wartoœci wyjœcia - [po³o¿enie, prêdkoœæ, przyspieszenie]
 Yprzel=[];  %ostatni Y w ka¿dym prze³¹czeniu
 
-for nr_przel = 2:params.lb_przel
+lb_przel = length(params.czasy_przel); %iloœæ prze³¹czeñ
+
+for nr_przel = 2:lb_przel
     if nr_przel == 2 % ustawienie aktualnego warunku poczatkowego
        y0 = params.xOperating;
     else 

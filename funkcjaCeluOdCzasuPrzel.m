@@ -7,6 +7,7 @@ function J = funkcjaCeluOdCzasuPrzel(tau, params)
 
 %% -- Rozwiazanie rownan -- mozna zamknac w osobnej funkcji dla czytelnosci
 max_przelaczen = length(tau);
+Tfinish = params.czasy_przel(end); %ostatnie prze³¹cznie
 
 % sporz¹dzenie wektora sterowañ
 u=[];
@@ -22,6 +23,7 @@ end
 Tall = [];  %wektor czasu
 Yall = [];  %wszystkie wartoœci Y - [odleg³oœæ, prêdkoœæ, przyspieszenie]
 Yprzel=[];  %ostatni Y w ka¿dym prze³¹czeniu
+
 for przelaczenie = 2:max_przelaczen
     % ustawienie aktualnego warunku poczatkowego
     if przelaczenie > 2
@@ -78,7 +80,8 @@ x1 = x(1,:);
 suma = sum(x1);
 kwadratSumy = suma.^2;
 
-J = params.Tfinish + ro*(kwadratSumy);
+J = ro*(kwadratSumy); % + Tfinish
+% Tfinish dominuje wskaznik jakosci
 
 end
 
