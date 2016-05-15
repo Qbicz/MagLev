@@ -37,35 +37,35 @@ for przelaczenie = 2:max_przelaczen
 end
 
 %wykres po³o¿enia kulki
-subplot(2,1,1)
-hold on;
-grid on
-plot(Tall,Yall(:,:)*params.alpha*1000);
-title('Odleg³oœæ œrodka sfery od cewki elektromagnesu [mm]');
-
-% !!!
-% Kazik to ponizej:
-%
-
-% wektor do wyplotowania prze³¹czeñ
-P=[];
- p=2;
-for i=1:length(Tall)
-      if Tall(i)< tau(p)
-          if p(mod(p,2)==0)
-              P(i)= params.umin;
-          else
-              P(i)= params.umax;
-          end
-      else
-          P(i)= P(i-1);
-          p=p+1;
-      end
- end
-subplot(2,1,2)
-hold on;
-plot(Tall,P)
-title('Funkcja prze³¹czaj¹ca')
+% subplot(2,1,1)
+% hold on;
+% grid on
+% plot(Tall,Yall(:,:)*params.alpha*1000);
+% title('Odleg³oœæ œrodka sfery od cewki elektromagnesu [mm]');
+% 
+% % !!!
+% % Kazik to ponizej:
+% %
+% 
+% % wektor do wyplotowania prze³¹czeñ
+% P=[];
+%  p=2;
+% for i=2:length(Tall)
+%       if Tall(i)< tau(p)
+%           if p(mod(p,2)==0)
+%               P(i)= params.umin;
+%           else
+%               P(i)= params.umax;
+%           end
+%       else
+%           P(i)= P(i-1);
+%           p=p+1;
+%       end
+%  end
+% subplot(2,1,2)
+% hold on;
+% plot(Tall,P)
+% title('Funkcja prze³¹czaj¹ca')
 
 %% Wyliczenie wartoœci funkcji celu
 ro=100;

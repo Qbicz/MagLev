@@ -22,13 +22,11 @@ umin = (vmin*k - is)/(ni*tau); %minimalne sterowanie
 step = 0.001; %przyjêty krok
 
 % sporz¹dzenie wektora sterowañ
-wektor_ster = []; %weñktor sterowa
+wektor_ster = []; %wektor sterowan
 wektor_ster = wekt_ster(lb_przel, umax, umin);
 
 nom_pkt = [1.8094; 0.0; 2.4712]; % Nominalny punkt pracy ^x1 = 14mm
 %y0 = [x_zadane/(alpha*1000); 0.0; 2.4712];
-
-
 
 
 % struktura parametrów wykorzystywana przy wywo³aniu funkcji celu
@@ -49,60 +47,38 @@ Yprzel = [];  %ostatni Y w ka¿dym prze³¹czeniu
 
 [T, Y, Yprzel]= rozw_rown(params);
 
-%wykres po³o¿enia kulki
-subplot(2,1,1)
-hold on;
-grid on
-plot(T,Y(1,:)*alpha*1000); %przeskalowanie po³o¿enia do [mm]
-title('Odleg³oœæ œrodka sfery od cewki elektromagnesu [mm]');
+%funkcja subplotuj¹ca polozenie kulki i wektor prze³¹czeñ
+rysujPolozenieIPrzelaczenia(T, Y, alpha, czasy_przel, umin, umax); 
 
 
- %generowanie wektora prze³¹czeñ
- P=[];
- p=2;
- for i=1:length(T)
-     if T(i)< czasy_przel(p)
-         if p(mod(p,2)==0)
-             P(i)= umin;
-         else
-             P(i)= umax;
-         end
-     else
-         P(i)= P(i-1);
-         p=p+1;
-     end
- end
-%funkcja plotuj¹ca wektor prze³¹czeñ 
-f_plot(T, P); 
+%% rozwi¹zywanie równañ sprzê¿onych wstecz
+% T_sprz = [];  %wektor czasu dla rozwi¹zywania wstecz
+% Psi = [];     %wartoœci psi z r. sprzê¿onych
+% ro = 25;      %wspó³czynnik kary
+% psiT = -ro*(Y(:,end)-nom_pkt); %psi w chwili koñcowej T - punkt startowy do rozwi¹zywania równañ w ty³
+% 
+% [T_sprz, Psi] = rozw_wtyl(psiT, Yprzel, params);
+% 
+% % wykres rozwi¹zanych r. sprzê¿onych wstecz
+% figure;
+% plot(T_sprz, Psi); title('wykres rozwi¹zanych r. sprzê¿onych wstecz')
+% grid on
 
-
-%rozwi¹zywanie równañ sprzê¿onych wstecz
-T_sprz = [];  %wektor czasu dla rozwi¹zywania wstecz
-Psi = [];     %wartoœci psi z r. sprzê¿onych
-ro = 25;      %wspó³czynnik kary
-psiT = -ro*(Y(:,end)-nom_pkt); %psi w chwili koñcowej T - punkt startowy do rozwi¹zywania równañ w ty³
-
-[T_sprz, Psi] = rozw_wtyl(psiT, Yprzel, params);
-
-% wykres rozwi¹zanych r. sprzê¿onych wstecz
-figure(2)
-plot(T_sprz, Psi)
-grid on
-
-%rozwi¹zywanie równañ stanu wstecz (sprawdzenie dzia³ania)
-T_spr = [];     %wektor czasu do rozw. r. stanu w ty³
-Y_spr = [];     %wektor wartoœci zm. stanu dla rozw. w ty³
-YT = Y(:,end); %ostatni punkt z wektora zmiennych stanu rozwi¹zywanych w przód
-
-[T_spr, Y_spr] = rozw_wtyl_spr(YT, params);
-
-%wykres równañ stanu rozwi¹zanych w ty³
-figure(3)
-plot(T_spr, Y_spr(1,:)*alpha*1000)
-grid on
+%% rozwi¹zywanie równañ stanu wstecz (sprawdzenie dzia³ania)
+% T_spr = [];     %wektor czasu do rozw. r. stanu w ty³
+% Y_spr = [];     %wektor wartoœci zm. stanu dla rozw. w ty³
+% YT = Y(:,end); %ostatni punkt z wektora zmiennych stanu rozwi¹zywanych w przód
+% 
+% [T_spr, Y_spr] = rozw_wtyl_spr(YT, params);
+% 
+% %wykres równañ stanu rozwi¹zanych w ty³
+% figure;
+% plot(T_spr, Y_spr(1,:)*alpha*1000);
+% title('wykres równañ stanu rozwi¹zanych w ty³');
+% grid on
 
 %% Funkcja celu
-J = funkcjaCeluOdX(ost_przel, Y, nom_pkt)
+% J = funkcjaCeluOdX(ost_przel, Y, nom_pkt)
 
 %% Minimalizacja wzd³u¿ wektora czasy_przel - prze³¹czeñ
 
@@ -125,10 +101,10 @@ A = -eye(rozmiar) + ... % diagonalna
 tril(ones(rozmiar),-1) - tril(ones(rozmiar),-2) % poddiagonalna
 
 % b = [0; 0; 0];
-b = zeros(1, rozmiar);
+b = zeros(1, rozmiar)
 % trzeba podac tez gradient, opcja optimset Optimization
 options = optimoptions('fmincon', 'MaxIter', 10000);
 
-czasy_przelOptim = fmincon(@(czasy_przelfmincon)funkcjaCeluOdczasy_przel(czasy_przelfmincon, params), czasy_przel0, A, b,[],[],[],[],[], options); % czasy_przelMin, czasy_przelMax);
+czasy_przelOptim = fmincon(@(czasy_przelfmincon)funkcjaCeluOdCzasuPrzel(czasy_przelfmincon, params), czasy_przel0, A, b,[],[],[],[],[], options); % czasy_przelMin, czasy_przelMax);
 %czasy_przelOptim = fmincon(@funkcjaCeluOdczasy_przel, czasy_przel0, A, b); % czasy_przelMin, czasy_przelMax);
 
