@@ -66,7 +66,7 @@ end
 H1=Psi(:,3);
 
 for i=1:length(tau)-2
-   dQ(i)=H1(cn(i+1))*(U(i+1)-U(i)); 
+   dQ(i)=H1(cn(i+1))*(U(i+1)-U(i));
 end
     dQ=dQ';
 end

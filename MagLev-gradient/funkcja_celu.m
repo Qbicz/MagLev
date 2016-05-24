@@ -1,4 +1,4 @@
-function [ output_args ] = funkcja_celu( input_args )
+function [ J ] = funkcja_celu(x0,u0,h0,tau,vmin,vmax,nom_pkt)
 %FUNKCJA_CELU Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -38,8 +38,10 @@ U(j)=u;
     u=vmax+vmin-u;   
 end
 
-%% do poprawy
-J = X(end);
+%% obliczenie wartosci funkcji celu
+ro = 100;
+Tfinish = tau(end);
+J = Tfinish + ro/2 * (sum(X(end,:) - nom_pkt))^2;
 
 end
 
