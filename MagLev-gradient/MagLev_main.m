@@ -68,8 +68,25 @@ title('Rozwi¹zywanie równañ sprzê¿onych w ty³')
 
 dQ = grad(y0,vmax,h0,czasy_przel,vmin,vmax,ro,nom_pkt);
 
+%% funkcja celu z gradientem
+%[J, Jgrad] = funkcja_celu_z_gradientem();
+
 %% fmincon
+czasy_przel0 = czasy_przel;
+% A=[-1, 0, 0;
+%     1, -1, 0;
+%     0, 1, -1];
 
+% generacja macierzy ograniczen A i b dla dowolnej wielkosci
+rozmiar = length(czasy_przel);
+A = -eye(rozmiar) + ... % diagonalna
+tril(ones(rozmiar),-1) - tril(ones(rozmiar),-2) % poddiagonalna
 
+% b = [0; 0; 0];
+b = zeros(1, rozmiar)
+% uwzglednienie gradientu w fmincon
+options = optimoptions('fmincon','SpecifyObjectiveGradient',true, 'MaxIter', 10000);
+% szukanie minimum
+%czasy_przelOptim = fmincon(@(czasy_przelfmincon)funkcja_celu_z_gradientem(czasy_przelfmincon, params), czasy_przel0, A, b,[],[],[],[],[], options); % czasy_przelMin, czasy_przelMax);
 
 
