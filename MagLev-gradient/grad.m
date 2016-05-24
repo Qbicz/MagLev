@@ -2,6 +2,7 @@ function dQ = grad(x0,u0,h0,tau,vmin,vmax,ro,nom_pkt)
 
 %funkcje s³u¿¹ce do wyznaczania d³ugoœci kroku w przedzia³ach
 %strukturalnych
+tau=[0 tau];
 dtau=diff(tau);
 n=ceil(dtau/h0);
 cn=cumsum([1,n]);
@@ -71,5 +72,5 @@ end
     dQ=dQ';
     gradientT = gradT(X(end,:), u(end), Psi(end, :)) % 1 elem
     
-    dQ = [dQ; gradientT; 0];
+    dQ = [dQ; gradientT];
 end

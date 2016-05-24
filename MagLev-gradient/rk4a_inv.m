@@ -2,6 +2,7 @@ function [Psi] = rk4a_inv(Y,u,tau,h0,nom_pkt,ro)
 
 %funkcje s³u¿¹ce do wyznaczania d³ugoœci kroku w przedzia³ach
 %strukturalnych
+tau=[0 tau];
 dtau=diff(tau);
 n=ceil(dtau/h0);
 cn=cumsum([1,n]);

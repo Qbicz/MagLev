@@ -3,15 +3,15 @@ clear all; close all;
 stale;
 
 % chwile prze³¹czenia
-czasy_przel = [0, 0.01, 0.048, 0.051]; % , 0.1, 0.15, 0.2];
+czasy_przel = [0.03, 0.048, 0.051 ]; % , 0.1, 0.15, 0.2];
 lb_przel = length(czasy_przel); %iloœæ prze³¹czeñ
 ost_przel = czasy_przel(end); %ostatnie prze³¹cznie
 
 step = 0.001; %przyjêty krok
 
 % sporz¹dzenie wektora sterowañ
-wektor_ster = []; %wektor sterowan
-wektor_ster = wekt_ster(lb_przel, vmax, vmin);
+%wektor_ster = []; %wektor sterowan
+%wektor_ster = wekt_ster(lb_przel, vmax, vmin);
 
 x_zadane=18;
 u=[vmax vmin vmax];
@@ -30,10 +30,10 @@ grid on;
 
  %generowanie wektora prze³¹czeñ
  P=[];
- p=2;
+ p=1;
  for i=1:length(T)
      if T(i)< czasy_przel(p)
-         if p(mod(p,2)==0)
+         if p(mod(p,2)~=0)
              P(i)= umax;
          else
              P(i)= umin;

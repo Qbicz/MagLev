@@ -2,6 +2,7 @@ function [X,t,u_wyj] = rk4a(X0,u,tau,h0)
 
 %funkcje s³u¿¹ce do wyznaczania d³ugoœci kroku w przedzia³ach
 %strukturalnych
+tau=[0 tau];
 dtau=diff(tau);
 n=ceil(dtau/h0);
 cn=cumsum([1,n]);
