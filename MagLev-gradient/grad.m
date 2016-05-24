@@ -69,4 +69,7 @@ for i=1:length(tau)-2
    dQ(i)=H1(cn(i+1))*(U(i+1)-U(i));
 end
     dQ=dQ';
+    gradientT = gradT(X(end,:), u(end), Psi(end, :)) % 1 elem
+    
+    dQ = [dQ; gradientT; 0];
 end

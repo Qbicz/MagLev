@@ -92,5 +92,7 @@ options = optimoptions(options, 'GradObj', 'on');
 % szukanie minimum
 czasy_przelOptim = fmincon(@(czasy_przelfmincon)funkcja_celu_z_gradientem(y0,vmax,h0,czasy_przelfmincon,vmin,vmax,ro,nom_pkt), czasy_przel0, A, b,[],[],[],[],[], options) % czasy_przelMin, czasy_przelMax);
 
-% the gradient should have 4 elements.
+% the gradient should have 3 elements.
+
+
 

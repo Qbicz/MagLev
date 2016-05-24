@@ -10,7 +10,9 @@ function [J, gradient] = funkcja_celu_z_gradientem(x0,u0,h0,tau,vmin,vmax,ro,nom
 J = funkcja_celu(x0,u0,h0,tau,vmin,vmax,nom_pkt)
 
 %% Gradient - na podstawie wzoru psi*costam
-gradient = grad(x0,u0,h0,tau,vmin,vmax,ro,nom_pkt)
+gradient = grad(x0,u0,h0,tau,vmin,vmax,ro,nom_pkt) % 2 elem
+
+%gradient = [gradient; gradientT]
 
 end
 
