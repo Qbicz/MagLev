@@ -46,7 +46,7 @@ grid on;
 
 subplot(2,1,2);
 plot(T,P);
-title('Wektor prze³¹czeñ');
+%title('Wektor prze³¹czeñ');
 xlabel('Czas');
 ylabel('Wartoœæ');
 grid on;
@@ -56,13 +56,14 @@ nom_pkt = pkt_rownowagi(14); % Nominalny punkt pracy ^x1 = 14mm
 ro=5;
 PsiT=-ro*(Y(end,:)-nom_pkt);
 Psi = rk4a_inv(Y,u,czasy_przel,h0,nom_pkt,ro);
-figure(2)
-plot(T, Psi(:,3));
-legend('Psi3')
+%figure(2)
+hold on;
+plot(T, 10*Psi(:,3), 'r-'); % przeskalowanie na potrzeby wykresu
+%legend('Psi3')
 xlabel('T')
 ylabel('Psi')
 grid on
-title('Rozwi¹zywanie równañ sprzê¿onych w ty³')
+title('F. przelaczajaca na tle wektora przelaczen')
 
 %% gradient
 
@@ -86,13 +87,52 @@ tril(ones(rozmiar),-1) - tril(ones(rozmiar),-2) % poddiagonalna
 % b = [0; 0; 0];
 b = zeros(1, rozmiar)
 % uwzglednienie gradientu w fmincon
-options = optimoptions('fmincon', 'MaxIter', 10000);
+options = optimoptions('fmincon', 'MaxIter', 20);
 options = optimoptions(options, 'GradObj', 'on');
 
-% szukanie minimum
+%% szukanie minimum
 czasy_przelOptim = fmincon(@(czasy_przelfmincon)funkcja_celu_z_gradientem(y0,vmax,h0,czasy_przelfmincon,vmin,vmax,ro,nom_pkt), czasy_przel0, A, b,[],[],[],[],[], options) % czasy_przelMin, czasy_przelMax);
-
 % the gradient should have 3 elements.
 
+% tutaj ROZW ROWNANIA i OCENIC optymalizacje
 
+% wyrysowac f przelaczajaca
+
+%% rown rownan w przod
+x_zadane=18;
+u=[vmax vmin vmax];
+y0 = pkt_rownowagi(x_zadane);
+h0=0.0001; %podstawowy krok dyskretyzacji
+
+[Y,T,u_wyj]=rk4a(y0,u,czasy_przelOptim,h0);
+
+%wykres po³o¿enia kulki
+figure;
+subplot(2,1,1)
+plot(T,Y(:,1)*1000); %przeskalowanie po³o¿enia do [mm]
+title('Odleg³oœæ œrodka sfery od cewki elektromagnesu [mm]');
+grid on;
+
+ %generowanie wektora prze³¹czeñ
+ P=[];
+ p=1;
+ for i=1:length(T)
+     if T(i)< czasy_przel(p)
+         if p(mod(p,2)~=0)
+             P(i)= umax;
+         else
+             P(i)= umin;
+         end
+     else
+         P(i)= P(i-1);
+         p=p+1;
+     end
+ end
+
+subplot(2,1,2);
+plot(T,P);
+title('Wektor prze³¹czeñ');
+xlabel('Czas');
+ylabel('Wartoœæ');
+grid on;
 

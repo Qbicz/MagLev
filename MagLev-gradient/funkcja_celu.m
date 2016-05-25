@@ -43,5 +43,6 @@ ro = 100;
 Tfinish = tau(end);
 J = Tfinish + ro/2 * (sum(X(end,:) - nom_pkt))^2;
 
+
 end
 
