@@ -65,13 +65,11 @@ ylabel('Psi')
 grid on
 title('F. przelaczajaca na tle wektora przelaczen')
 
-%% gradient
-
-dQ = grad(y0,vmax,h0,czasy_przel,vmin,vmax,ro,nom_pkt);
-
 %% funkcja celu z gradientem
 %J = funkcja_celu(y0,vmax,h0,czasy_przel,vmin,vmax,nom_pkt)
+tic
 [J, Jgrad] = funkcja_celu_z_gradientem(y0,vmax,h0,czasy_przel,vmin,vmax,ro,nom_pkt)
+toc
 
 %% fmincon
 czasy_przel0 = czasy_przel;
@@ -87,7 +85,7 @@ tril(ones(rozmiar),-1) - tril(ones(rozmiar),-2) % poddiagonalna
 % b = [0; 0; 0];
 b = zeros(1, rozmiar)
 % uwzglednienie gradientu w fmincon
-options = optimoptions('fmincon', 'MaxIter', 5);
+options = optimoptions('fmincon', 'MaxIter', 1);
 options = optimoptions(options, 'GradObj', 'on');
 
 %% szukanie minimum
