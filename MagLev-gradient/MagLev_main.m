@@ -87,7 +87,7 @@ tril(ones(rozmiar),-1) - tril(ones(rozmiar),-2) % poddiagonalna
 % b = [0; 0; 0];
 b = zeros(1, rozmiar)
 % uwzglednienie gradientu w fmincon
-options = optimoptions('fmincon', 'MaxIter', 20);
+options = optimoptions('fmincon', 'MaxIter', 5);
 options = optimoptions(options, 'GradObj', 'on');
 
 %% szukanie minimum
