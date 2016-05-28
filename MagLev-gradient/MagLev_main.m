@@ -7,8 +7,6 @@ czasy_przel = [0.03, 0.048, 0.051 ]; % , 0.1, 0.15, 0.2];
 lb_przel = length(czasy_przel); %iloœæ prze³¹czeñ
 ost_przel = czasy_przel(end); %ostatnie prze³¹cznie
 
-step = 0.001; %przyjêty krok
-
 % sporz¹dzenie wektora sterowañ
 %wektor_ster = []; %wektor sterowan
 %wektor_ster = wekt_ster(lb_przel, vmax, vmin);
@@ -16,7 +14,7 @@ step = 0.001; %przyjêty krok
 x_zadane=18;
 u=[vmax vmin vmax];
 y0 = pkt_rownowagi(x_zadane);
-h0=0.0001; %podstawowy krok dyskretyzacji
+h0=0.005; %podstawowy krok dyskretyzacji
 
 %wywo³anie metody RK4
 [Y,T,u_wyj]=rk4a(y0,u,czasy_przel,h0);
@@ -85,24 +83,26 @@ tril(ones(rozmiar),-1) - tril(ones(rozmiar),-2) % poddiagonalna
 % b = [0; 0; 0];
 b = zeros(1, rozmiar)
 % uwzglednienie gradientu w fmincon
-options = optimoptions('fmincon', 'MaxIter', 1);
-options = optimoptions(options, 'GradObj', 'on');
+
+options = optimoptions(@fmincon,'Algorithm', 'active-set'); % mozna probowac: 'sqp' 'active-set'
+options = optimoptions(options,  'GradObj', 'on', 'MaxIter', 10, 'maxFunEvals', 10);
+
+options
 
 %% szukanie minimum
 czasy_przelOptim = fmincon(@(czasy_przelfmincon)funkcja_celu_z_gradientem(y0,vmax,h0,czasy_przelfmincon,vmin,vmax,ro,nom_pkt), czasy_przel0, A, b,[],[],[],[],[], options) % czasy_przelMin, czasy_przelMax);
 % the gradient should have 3 elements.
 
-% tutaj ROZW ROWNANIA i OCENIC optymalizacje
-
-% wyrysowac f przelaczajaca
-
-%% rown rownan w przod
+%% tutaj ROZW ROWNANIA i OCENIC optymalizacje
+% rown rownan w przod
 x_zadane=18;
 u=[vmax vmin vmax];
 y0 = pkt_rownowagi(x_zadane);
 h0=0.0001; %podstawowy krok dyskretyzacji
 
 [Y,T,u_wyj]=rk4a(y0,u,czasy_przelOptim,h0);
+
+[J, Jgrad] = funkcja_celu_z_gradientem(y0,vmax,h0,czasy_przel,vmin,vmax,ro,nom_pkt)
 
 %wykres po³o¿enia kulki
 figure;
@@ -133,4 +133,8 @@ title('Wektor prze³¹czeñ');
 xlabel('Czas');
 ylabel('Wartoœæ');
 grid on;
+
+
+
+% wyrysowac f przelaczajaca
 
