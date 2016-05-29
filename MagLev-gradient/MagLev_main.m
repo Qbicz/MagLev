@@ -5,7 +5,7 @@ stale;
 % TODO: wskaznik jakosci (predkosc), punkty startowe i koncowe
 
 % chwile prze³¹czenia
-czasy_przel = [0.02, 0.045, 0.051 ]; % , 0.1, 0.15, 0.2];
+czasy_przel = [0.03, 0.045, 0.051 ]; % , 0.1, 0.15, 0.2];
 lb_przel = length(czasy_przel); %iloœæ prze³¹czeñ
 ost_przel = czasy_przel(end); %ostatnie prze³¹cznie
 
@@ -58,7 +58,7 @@ PsiT=-ro*(Y(end,:)-nom_pkt);
 Psi = rk4a_inv(Y,u,czasy_przel,h0,nom_pkt,ro);
 %figure(2)
 hold on;
-plot(T_rozw_w_przod, 10*Psi(:,3), 'r-'); % przeskalowanie na potrzeby wykresu
+plot(T_rozw_w_przod, 100*Psi(:,3), 'r-'); % przeskalowanie na potrzeby wykresu
 %legend('Psi3')
 xlabel('T')
 ylabel('Psi')
@@ -85,8 +85,8 @@ tril(ones(rozmiar),-1) - tril(ones(rozmiar),-2); % poddiagonalna
 b = zeros(1, rozmiar);
 % uwzglednienie gradientu w fmincon
 
-czasy_przelMin = czasy_przel - [0.02 0.02 0.01];%[0; 0; czasy_przel(end)];
-czasy_przelMax = czasy_przel + [0.02 0.02 0.01];%[czasy_przel(end); czasy_przel(end); czasy_przel(end)];
+czasy_przelMin = czasy_przel - [0.03 0.03 0.005];%[0; 0; czasy_przel(end)];
+czasy_przelMax = czasy_przel + [0.03 0.03 0.005];%[czasy_przel(end); czasy_przel(end); czasy_przel(end)];
 
 options = optimoptions(@fmincon,'Algorithm', 'sqp'); % mozna probowac: 'sqp' 'active-set'
 options = optimoptions(options,  'GradObj', 'on');% , 'MaxIter', 10, 'maxFunEvals', 10);
@@ -153,7 +153,7 @@ grid on;
 % wyrysowac f przelaczajaca
 
 hold on;
-plot(T_rozw_w_przod_optim, 10*Psi_optim(:,3), 'r-'); % przeskalowanie na potrzeby wykresu
+plot(T_rozw_w_przod_optim, 20*Psi_optim(:,3), 'r-'); % przeskalowanie na potrzeby wykresu
 %legend('Psi3')
 xlabel('T')
 ylabel('Psi')

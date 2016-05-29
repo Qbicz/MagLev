@@ -47,7 +47,7 @@ end
 % obliczenie wartosci funkcji celu
 ro_f_celu = 100;
 Tfinish = tau(end);
-norma = (X(end,1) - nom_pkt(1))^2 + 10*(X(end,2) - nom_pkt(2))^2
+norma = (X(end,1) - nom_pkt(1))^2 + 1*(X(end,2) - nom_pkt(2))^2 + (X(end,3) - nom_pkt(3))^2;
 J = Tfinish + ro_f_celu/2 * norma;
 
 %% Rozw wstecz na potrzeby gradientu
@@ -59,7 +59,7 @@ Psi_T=-ro*(X(end,:)-nom_pkt);
 Psi(end,:)=Psi_T;
 
 %algorytm metody Rungego-Kutty od ty³u
-for j=(length(dtau)-1):-1:1                 %%BY£O ...LENGTH(TAU)... - czyli o jedena iteracje wiecej
+for j=(length(dtau)):-1:1                 %%BY£O ...LENGTH(TAU)... - czyli o jedena iteracje wiecej
     h=dtau(j)/n(j);
     h2=h/2;h3=h/3;h6=h/6;
     for i=cn(j+1):-1:cn(j)+1
