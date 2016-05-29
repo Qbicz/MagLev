@@ -45,9 +45,10 @@ U(j)=u;
 end
 
 % obliczenie wartosci funkcji celu
-ro = 100;
+ro_f_celu = 100;
 Tfinish = tau(end);
-J = Tfinish + ro/2 * (sum(X(end,:) - nom_pkt))^2;
+norma = (X(end,1) - nom_pkt(1))^2 + 10*(X(end,2) - nom_pkt(2))^2
+J = Tfinish + ro_f_celu/2 * norma;
 
 %% Rozw wstecz na potrzeby gradientu
 %Zdefiniowanie warunku koñcowego dla równañ sprzê¿onych
@@ -58,7 +59,7 @@ Psi_T=-ro*(X(end,:)-nom_pkt);
 Psi(end,:)=Psi_T;
 
 %algorytm metody Rungego-Kutty od ty³u
-for j=(length(tau)-1):-1:1
+for j=(length(dtau)-1):-1:1                 %%BY£O ...LENGTH(TAU)... - czyli o jedena iteracje wiecej
     h=dtau(j)/n(j);
     h2=h/2;h3=h/3;h6=h/6;
     for i=cn(j+1):-1:cn(j)+1
@@ -78,14 +79,14 @@ end
 
 %% Gradient - na podstawie wzoru psi*costam
 H1=Psi(:,3);
-
+qQ = zeros(2,1);
 % gradienty po tau (2 elem)
 for i=1:length(tau)-2
    dQ(i)=H1(cn(i+1))*(U(i+1)-U(i));
 end
     dQ=dQ';
     % gradient po czasie koncowym
-    gradientT = gradT(X(end,:), u(end), Psi(end, :)) % 1 elem
+    gradientT = gradT(X(end,:), U(end), Psi(end, :)); % 1 elem    %%B£¥D W gradT (by³ liczony H(T) a nie 1-H(T)
     
     dQ = [dQ; gradientT];
 
