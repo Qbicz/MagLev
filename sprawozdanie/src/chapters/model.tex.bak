@@ -13,7 +13,7 @@ Do zastosowania algorytmu sterowania QTO-RHC niezbędny jest model układu. Decy
 
 Równania różniczkowe układu, po przeskalowaniu skalowania, zmiennych stanu oraz czasu:
 
-\begin{equation}
+\begin{equation} \label{maglev_rown}
   \begin{cases}
     \dot{x}_1 & = x_2 \\
     \dot{x}_2 & = -e^{-x_1} \cdot x_3^2 + 1 \\

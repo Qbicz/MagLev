@@ -2,17 +2,62 @@
 
 Jeżeli układ nieliniowy ma postać
 \begin{equation}
-\dot{x} = f(x) + g(x) \cdot u
+\dot{x} = f(x) + g(x) \cdot u, \qquad x \in \mathbb{R}^n, u \in \mathbb{R}^n, t \in [0,T], f \in C^1
+\end{equation}
+z warunkiem początkowym
+\begin{equation}
+x(0) = x_0
+\end{equation}
+To przyjmując wskaźnik jakości w formie funkcjonału
+\begin{equation} \label{wskaznik}
+J(u, T) = q(T, x(T)) = T + \frac{1}{2} \rho |x(T) - x_{ref}|^2
+\end{equation}
+\textbf{sterowanie optymalne}, tj. takie, które najszybciej doprowadza układ do zadanego położenia ma postać sterowania bang-bang
+\begin{equation}
+u(t) = 
+\begin{cases}
+    u_{max}, g^T \psi > 0 \\
+    u_{min}, g^T \psi < 0
+\end{cases}
+\end{equation}
+Przyjęto że czasy przełączeń sterowania oznaczono przez $\tau_1, \tau_2, ..., \tau_n, T$.
+
+\noindent
+$\psi(t)$ to funkcja oznaczająca równanie sprzężone układu, takie że
+\begin{equation}
+\dot{\psi} = - \nabla_x H
+\end{equation}
+gdzie $H$ jest macierzą Hamiltona układu.
+
+Sprawdzenie, czy sterowanie jest optymalne może być przeprowadzone przez wyrysowanie \textbf{funkcji przełączającej} i jej porównanie ze sterowaniem. Funkcja przełączająca ma postać
+\begin{equation}
+\Phi(t) = g^T(x(t)) \cdot \psi(t)
 \end{equation}
 
-Sterowanie optymalne
+\subsection{Analiza układu MagLev}
 
-Funkcja przełączająca
+Hamiltonian układu \ref{maglev_rown} ma postać
+\begin{equation}
+H = \psi_1 x_2 + \psi_2 (bx_3^2 e^{ax_1}+g) + \psi_3 (cx_3 + u)
+\end{equation}
 
-Wskaźnik jakości
+Równania sprzężone układu magnetycznej lewitacji  \cite{Turnau}:
+\begin{equation}
+\begin{cases}
+	\dot{\psi}_1 = - ab \cdot e^{ax_1} \cdot x_3^2 \psi_2 \\
+	\dot{\psi}_2 = - \psi_1 \\
+	\dot{\psi}_3 = -2b \cdot e^{ax_1} \cdot x_3 \psi_2 - c \psi_3
+\end{cases}
+\end{equation}
 
-Gradient wskaźnika jakości
-\cite{Turnau}
+W celu przyspieszenia numerycznej optymalizacji sterowania z użyciem funkcji fmincon() z pakietu Optimization \textsc{MATLAB}a, należy obliczyć gradient wskaźnika jakości względem czasów przełączeń. Gradient wskaźnika jakości po czasach przełączeń $\tau_i$ dla układu MagLev jest dany wzorem
+\begin{equation}
+\nabla_{\tau_i} J = \Phi(t) (u^+ - u^-)
+\end{equation}
+Natomiast gradient wskaźnika jakości po czasie końcowym ma postać
+\begin{equation}
+\nabla_T J = 1 - H(\psi(T), x(T), u(T^-))
+\end{equation}
 
 %\begin{figure}[!htb]
 %  \begin{center}
@@ -24,35 +69,6 @@ Gradient wskaźnika jakości
 %\end{figure}
 
 
-
-\begin{table}[!htb]
-  \centering
-  \begin{tabular}{|c|l|l|}
-  \hline
-  Parametr/Funkcja & Wartość \\
-  \hline
-  $I_v$ & $0.0489$ \\
-  \hline
-  $l_m$ & $0.232$ \\
-  \hline
-  $F_m$ & -- \\
-  \hline
-  $f_v$ & $0.0142$ \\
-  \hline
-  $c_g$ & $0.252$ \\
-  \hline
-  $\phi_{v0}$ & $-0.536$ \\
-  \hline
-  $a_m$ & $0.0000329$ \\
-  \hline
-  $H^{-1}_m$ & -- \\
-  \hline
-  $c_{mm}$ & $326$ \\
-  \hline
-  \end{tabular}
-  \caption{Parametry modelu}
-  \label{tab:idf}
-\end{table}
 
 
 
