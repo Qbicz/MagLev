@@ -1,0 +1,51 @@
+% Styl cytowania:
+% Nazwisko I. (1999): Tytuł - Gdzie, Co, Strony
+% Gosiewski Z. (1999):
+% Magnetic Bearings for Rotated Machines. Control and Experimants. — Warsaw:  Sci. Library of the Aviation Institute (in Polish).
+% Grega  W.  (1997):
+% Time-critical integrated  control  and  design systems. — Proc. Int. Conf. Methods and Models in Automatics and Robotics,Miedzyzdroje, Poland, pp. 665–670
+
+
+Michael Athans, Peter L. Falb
+
+Optimal Control: An Introduction to the Theory and Its Applications
+
+@book{athans-falb,
+  title={Optimal Control: An Introduction to the Theory and Its Applications},
+  author={Michael Athans, Peter L. Falb},
+  year={1966},
+  publisher={Courier Corporation}
+}
+
+@thesis{Bania1999,
+author = {Piotr Bania},
+title = {Model i sterowanie magnetyczną lewitacją},
+type = {Praca magisterska},
+institution = {AGH Kraków},
+year = {1999}
+}
+
+@book{Bania,
+  title={Algorytmy sterowania optymalnego w nieliniowej regulacji predykcyjnej},
+  author={Piotr Bania },
+  year={2008},
+  publisher={AGH}
+}
+
+@book{Turnau,
+  title={Sterowanie docelowe układami nieliniowymi w czasie rzeczywistym - algorytmy inteligentne i optymalnoczasowe},
+  author={Andrzej Turnau},
+  year={2002},
+  publisher={Wydawnictwa AGH}
+}
+
+@online{FocusDesigns1,
+	author = "asdf",
+	title = "Strona internetowa firmy Focus Designs, dostęp 30.12.2015",
+	year = {2015},
+	url = "www.focusdesigns.com/",
+	note = "www.focusdesigns.com/"
+}
+
+
+\end{thebibliography}

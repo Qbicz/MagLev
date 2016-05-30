@@ -1,0 +1,17 @@
+\section{Optymalizacja w środowisku \textsc{MATLAB}}
+
+Model matematyczny i znajomość struktury optymalnego sterowania bang-bang wykorzystano do numerycznej optymalizacji wskaźnika jakości określającego jak najszybsze dotarcie do zadanego położenia równowagi.
+
+Rozwiązywanie równań w środowisku \textsc{MATLAB}...
+
+%\begin{figure}[!htb]
+%\centering
+%\includegraphics[scale=0.85]{img/symulacja_simulink.png}
+%\caption{Model numeryczny w środowisku \textsc{Simulink}}
+%\label{rys:sim_simulink}
+%\end{figure}
+
+\subsection{Wykorzystanie ustawień fmincon()}
+
+
+
