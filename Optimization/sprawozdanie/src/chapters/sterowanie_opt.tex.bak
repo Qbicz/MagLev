@@ -55,7 +55,7 @@ W celu przyspieszenia numerycznej optymalizacji sterowania z użyciem funkcji fm
 \nabla_{\tau_i} J = \Phi(t) (u^+ - u^-)
 \end{equation}
 Natomiast gradient wskaźnika jakości po czasie końcowym ma postać
-\begin{equation}
+\begin{equation} \label{gradient}
 \nabla_T J = 1 - H(\psi(T), x(T), u(T^-))
 \end{equation}
 

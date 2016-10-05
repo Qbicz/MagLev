@@ -1,12 +1,11 @@
 \section{Optymalizacja w środowisku \textsc{MATLAB}}
 
-Model matematyczny i znajomość struktury optymalnego sterowania bang-bang wykorzystano do numerycznej optymalizacji wskaźnika jakości określającego jak najszybsze dotarcie do zadanego połozenia równowagi.
-
-Rozwiazywanie równan różniczkowych w środowisku MATLAB odbywało się metodą Rungego-Kutty czwartego rzędu. 
+Model matematyczny i znajomość struktury optymalnego sterowania bang-bang wykorzystano do numerycznej optymalizacji wskaźnika jakości określającego jak najszybsze dotarcie do zadanego położenia równowagi.
+Rozwiązywanie równań różniczkowych w środowisku MATLAB odbywało się metodą \textbf{Rungego-Kutty czwartego rzędu}. 
 
 Funkcja \texttt{rk4} rozwiązuje równania stanu "w przód". Parametrami wejściowymi dla funkcji są: punkt początkowy,
 wektor sterowań, czasy przełączeń oraz krok dyskretyzacji. Funkcja zwraca rozwiązanie równań stanu oraz
-czas. Różniczkowe równania stanu zawarto w funkcji rhs, który jest wywoływany wewnątrz rk4.
+czas. Różniczkowe równania stanu zawarto w funkcji \texttt{rhs}, która jest wywoływana wewnątrz \texttt{rk4}.
 
 Funkcja \texttt{r4k\_inv} rozwiązuje równania sprzężone "wstecz". Parametrami wejściowymi dla funkcji są: rozwiązanie
 równań stanu, wektor sterowań, czasy przełączeń, krok dyskretyzacji, punkt docelowy oraz współczynnik ro.
@@ -14,12 +13,12 @@ Funkcja zwraca rozwiązanie równań sprzężonych.Różniczkowe równania sprz�
 który jest wywoływany wewnątrz funkcji \texttt{rk4\_inv}.
 
 Funkcja celu (nazwana \texttt{funkcja\_celu\_z\_gradientem}) wykonuje opisane powyżej czynności, a więc rozwiązuje 
-równania stanu "w przód" oraz równania sprzężone "wstecz". Następnie wylicza wskaźnik jakości dla danego 
+równania stanu \quotedblbase w przód\textquotedblright oraz równania sprzężone "wstecz". Następnie wylicza wskaźnik jakości dla danego 
 wektora przełączeń. Wskaźnik jakości obliczany jest dla stanu końcowego zgodnie ze wzorem \ref{wskaznik}. 
 Największą wagę we wskaźniku jakości przypisano dla położenia oraz prędkości kulki, ponieważ uznano, że 
 parametry te powinny być w jak największym stopniu zgodne z oczekiwanymi. Ostatnim etapem w napisanej 
 funkcji celu jest obliczenie gradientów wskaźnika jakości dla chwil przełączeń oraz czasy końcowego
-zgodnie ze wzorem (...). Parametrami wejściowymi funkcji celu są: punkt początkowy, krok dyskretyzacji,
+zgodnie ze wzorem \ref{gradient}. Parametrami wejściowymi funkcji celu są: punkt początkowy, krok dyskretyzacji,
 czasy przełączeń, współczynnik ro, punkt docelowy oraz wektor sterowań. Funkcja celu zwraca obliczoną
 wartość wskaźnika jakości oraz wektor gradientów wskaźnika jakości.
 
@@ -48,7 +47,9 @@ można określić indywidualne czasy przełączeń, wektor sterowań, zadane sta
 krok dyskretyzacji. W dalszej części programu rozwiązywane są równania stanu "w przód" i równania
 sprzężone "wstecz" dla parametrów początkowych. Rysowane są również wykresy przedstawiające zmienne stanu, 
 funkcję sterującą oraz funkcję przełączającą dla warunków początkowych oraz obliczany jest wskaźnik jakości
-wraz z gradientem. Optymalizacja początkowego rozwiązania wykonywana jest z użyciem funkcji wbudowanej 
+wraz z gradientem.
+
+Optymalizacja początkowego rozwiązania wykonywana jest z użyciem funkcji wbudowanej 
 \texttt{fmincon()} w programie Matlab. Dodano ograniczenia nierównościowe, aby zachować odpowiednie wartości czasów
 przełączeń. Dodatkowo ustawiono dolną i górną granicę dla szukanych optymalnych czasów przełączeń. Nie 
 mogą różnić sie one o wielkość większą niż delta od początkowych czasów przełączeń. Zdecydowano się na to

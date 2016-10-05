@@ -4,9 +4,9 @@ Sterowanie docelowe metodą QTO-RHC pozwala na predykcję funkcji sterującej dl
 Często znalezienie sterowania optymalnego jest trudnym zadaniem, które wymaga dużych nakładów 
 obliczeniowych i czasowych. Naszym zadaniem optymalizacji była stabilizacja położenia i prędkości metalowej
 kulki lewitującej w polu magnetycznym. W trakcie laboratoriów wykorzystywano algorytm Rungego-Kutty, za 
-pomocą którego rozwiązywano równania różniczkowe "w przód" oraz "wstecz". Została napisana funkcja do
+pomocą którego rozwiązywano równania różniczkowe \quotedblbase w przód\textquotedblright oraz \quotedblbase wstecz\textquotedblright. Została napisana funkcja do
 obliczania wskaźnika jakości wraz z gradientami, która następnie została poddana minimalizacji przy pomocy
 funckji fmincon programu Matlab. Jako jedną z opcji funkcji fmincon ustawiono wykorzystanie obliczanego 
 wewnątrz funkcji celu gradientu wskaźnika jakości. Przyspieszyło to znalezienie sterowania odpowiadającego
 założeniom projektowym. Rozwiązanie problemu optymalizacji było możliwe dzięki wcześniejszej znajomości
-modelu matematycznego rozważanego obiektu wraz z równaniami stanu i sprzężonymi. 
+modelu matematycznego rozważanego obiektu wraz z równaniami stanu i sprzężonymi. Niestety, obliczona i zaprezentowana na wykresach funkcja przełączająca nie potwierdza optymalności znalezionego rozwiązania.

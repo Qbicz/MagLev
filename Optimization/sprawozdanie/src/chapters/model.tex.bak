@@ -1,6 +1,6 @@
 \section{Model matematyczny lewitacji magnetycznej}
 
-Do zastosowania algorytmu sterowania QTO-RHC niezbędny jest model układu. Decyzja o sterowaniu podejmowana jest na podstawie rozwiązań równań układu i równań sprzężonych. Stanowisko laboratoryjne magnetycznej lewitacji przedstawia rysunek \ref{rys:maglev}.
+Do zastosowania algorytmu sterowania QTO-RHC niezbędny jest model układu. Decyzja o sterowaniu podejmowana jest na podstawie rozwiązań równań układu i równań sprzężonych. Stanowisko laboratoryjne magnetycznej lewitacji przedstawia rysunek 1.
 
 \begin{figure}[!htb]
   \begin{center}
