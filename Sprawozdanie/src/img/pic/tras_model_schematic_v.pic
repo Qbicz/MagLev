@@ -1,0 +1,43 @@
+.PS
+	define pi {3.1415}
+	define ver {(cos($1),sin($1))}
+	define rbox {[
+		rot = $1;
+		w = $2; h = $3;
+		W:Here;
+		line by ver(rot-pi/2)*h/2; SW: Here;
+		line by ver(rot)*w/2; S: Here;
+		line by ver(rot)*w/2; SE: Here;
+		line by ver(rot+pi/2)*h/2; E: Here;
+		line by ver(rot+pi/2)*h/2; NE: Here;
+		line by ver(rot+pi)*w/2; N: Here;
+		line by ver(rot+pi)*w/2; NW: Here;
+		line by ver(rot-pi/2)*h/2;
+	]}
+	
+	scale=1
+	bangle=pi/6
+	IV:circle; move to IV.se "$I_v$" below ljust;
+	circle at IV.c radius 0.04 fill 0;
+	line from IV.c to IV.c + (0.7,0) dashed;
+	line from IV.c to IV.c + ver(bangle)*IV.rad;
+	line by ver(bangle)*(0.7-IV.rad) dashed;
+	arc <- cw from IV.c + ver(bangle)*0.4 to IV.c + (0.4,0);
+	move to IV.c + ver(bangle/2)*0.55; "$\phi_v$"
+	move from IV.c to IV.c + ver(bangle-pi/2-pi/6)*0.8;
+	MR:rbox(bangle-pi/6,0.2,0.2) at Here; line from MR.N to IV.c;
+	"$m_r$" at MR.e ljust;
+	line from MR.W to MR.c - ver(bangle-pi/6)*0.45 dashed;
+	UA:(Here*3 + MR.c)/4
+	line from IV.c to IV.c - ver(bangle-pi/6)*0.45 dashed;
+	LA:(Here*3 + IV.c)/4
+	line <-> from UA to LA "$l_r$" rjust;
+	
+	line from IV.c to IV.c + ver(bangle-pi/2)*IV.rad;
+	line by ver(bangle-pi/2)*(0.5-IV.rad) dashed;
+	arc <- cw from IV.c + ver(bangle-pi/2)*0.4 to IV.c + ver(bangle-pi/2-pi/6)*0.4 with .c at IV.c;
+	move to IV.c + ver((bangle-pi/2+bangle-pi/2-pi/6)/2)*0.55; "$\phi_{v0}$"
+	
+	arc <- cw from IV.c + ver(bangle+pi/2+0.8)*0.4 to IV.c + ver(bangle+pi/2)*0.4 with .c at IV.c;
+	"$T_{mv},T_{tv},T_{fv},T_g$" at IV.c + ver(bangle+pi/2)*0.4 above;
+.PE

@@ -1,0 +1,31 @@
+Plan działania: \\
+
+\begin{enumerate}
+\item Obsługa enkoderów.
+\item Obsługa tachoprądnicy.
+\item Sterowanie silników.
+\item Obliczenie analityczne parametrów $I_h, I_v$.
+\item Identyfikacja parametrów oraz zależności: \\
+- tarcie (wahadła) $k_m, k_v$ \\
+- charakterystyki $F_m, F_t, \omega_m, \omega_t$ 
+\item Synteza regulatorów.
+\item Badania symulacyjne.
+\item Weryfikacja modelu – zamiana modelu na sprzęt.
+\item Realizacja zadania stabilizacji statycznej lub dynamicznej.
+\item Ocena jakości regulacji i dyskusja nad użytymi regulatorami.
+\end{enumerate}
+
+% TeX enum
+1. Obsługa enkoderów.
+2. Obsługa tachoprądnicy.
+3. Sterowanie silników
+4. Obliczenie analityczne parametrów $I_h, I_v$
+5. Identyfikacja parametrów oraz zależności:
+tarcie (wahadła) $k_m, k_v$
+charakterystyki $F_m, F_t, \omega_m, \omega_t$
+
+6. Synteza regulatorów.
+7. Badania symulacyjne.
+8. Weryfikacja modelu – zamiana modelu na sprzęt.
+9. Realizacja zadania stabilizacji statycznej lub dynamicznej.
+10. Ocena jakości regulacji i dyskusja nad użytymi regulatorami.

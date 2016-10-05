@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Thu Mar 17 22:47:34 GMT 2016
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=main.tex
+outputFile=LP_TRAS.pdf
+langSpell=pl
+markDer=true
+srcDir=src/

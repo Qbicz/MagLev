@@ -1,0 +1,48 @@
+.PS
+	define pi {3.1415}
+	define ver {(cos($1),sin($1))}
+	define rbox {[
+		rot = $1;
+		w = $2; h = $3;
+		W:Here;
+		line by ver(rot-pi/2)*h/2; SW: Here;
+		line by ver(rot)*w/2; S: Here;
+		line by ver(rot)*w/2; SE: Here;
+		line by ver(rot+pi/2)*h/2; E: Here;
+		line by ver(rot+pi/2)*h/2; NE: Here;
+		line by ver(rot+pi)*w/2; N: Here;
+		line by ver(rot+pi)*w/2; NW: Here;
+		line by ver(rot-pi/2)*h/2;
+	]}
+	
+	scale=1
+	bangle=pi/6
+	CEN:Here; circle at CEN radius 0.04 fill 0;
+	move to CEN + ver(bangle)*1;
+	MH:rbox(bangle,0.2,0.2) at Here;
+	line from MH.W to CEN;
+	"$m_2$" at MH.se below;
+	move to CEN + ver(bangle-pi/2)*0.7;
+	MV:rbox(bangle,0.2,0.2) at Here;
+	line from MV.N to CEN;
+	"$m_1$" at MV.se below;
+	
+	line from MH.N to MH.c + ver(bangle+pi/2)*0.45 dashed;
+	UH:(Here*3 + MH.c)/4
+	line from CEN to CEN + ver(bangle+pi/2)*0.45 dashed;
+	LH:(Here*3 + CEN)/4
+	line <-> from UH to LH "$l_2$" above rjust;
+	
+	line from MV.W to MV.c - ver(bangle)*0.45 dashed;
+	UV:(Here*3 + MV.c)/4
+	line from CEN to CEN - ver(bangle)*0.45 dashed;
+	LV:(Here*3 + CEN)/4
+	line <-> from UV to LV "$l_1$" below rjust;
+	
+	line from CEN to CEN + (0.7,0) dashed;
+	arc <- cw from CEN + ver(bangle)*0.4 to CEN + (0.4,0);
+	move to CEN + ver(bangle/2)*0.55; "$\phi_v$"
+	
+	line from CEN + (0,-0.3) to CEN + (0,0.3) dashed;
+	"$hx$" ljust;
+.PE
