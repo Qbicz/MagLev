@@ -1,10 +1,13 @@
-\section{Identyfikacja charakterystyk statycznych}
+\section{Identyfikacja}
 
-Aby wykorzystać zaproponowany w rozdziale 1 model, trzeba wiedzieć jak zależą prędkości śmigieł od napięć sterujących oraz jak siła ciągu śmigieł zależy od ich prędkości obrotu. W tym celu należy wyznaczyć charakterystyki statyczne $\omega_m(U_m), \omega_t(U_t), F_m(\omega_m)$ i $F_t(\omega_t)$
 
-\subsection{Zależność prędkości śmigieł od napięcia}
+\subsection{Identyfikacja charakterystyki czujnika - $u_x = g_1(x)$}
 
-\subsection{Oszacowanie wpływu tarcia na układ}
+
+\subsection{Identyfikacja ... }
+
+
+\subsection{Identyfikacja indukcyjności cewki $L(x_1)$}
 
 %\begin{figure}[!htb]
 %\centering
