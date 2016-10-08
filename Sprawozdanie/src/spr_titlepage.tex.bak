@@ -23,7 +23,7 @@
 im. Stanisława Staszica w Krakowie}\\[1.5cm]
 % Name of your university/college
 
-\textsc{\Large Laboratorium problemowe}\\[0.5cm]
+\textsc{\Large Laboratorium problemowe II}\\[0.5cm]
 % Major heading such as course name
 
 %----------------------------------------------------------------------------------------
@@ -31,13 +31,13 @@ im. Stanisława Staszica w Krakowie}\\[1.5cm]
 %----------------------------------------------------------------------------------------
 
 \HRule \\[0.5cm]
-{ \huge \bfseries TRAS}\\[0.3cm]
+{ \huge \bfseries Magnetyczna lewitacja}\\[0.3cm]
 % Title of your document
 \HRule \\[1.5cm]
 
 \flushright
 \Large \emph{Autorzy:}\\
-Konrad \textsc{Adasiewicz}\\[0.1cm]  % Your name
+Piotr \textsc{Pałucki}\\[0.1cm]  % Your name
 Filip \textsc{Kubicz}\\[3cm]        % Your name
 % Authors
 

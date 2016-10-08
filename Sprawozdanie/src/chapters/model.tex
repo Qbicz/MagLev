@@ -1,98 +1,25 @@
-\section{Model matematyczny obiektu TRAS}
+\section{Model matematyczny stanowiska MagLev}
+
+Lewitacja magnetyczna to zjawisko występujące, kiedy ferromagnetyczny obiekt znajdzie się w polu magnetycznym skierowanym pionowo w górę, na tyle silnym, że wytworzona siła zrównoważy działającą na przedmiot grawitację. Zjawisko to stosuje się obecnie w łożyskach magnetycznych w pociągach, rozwijanych głównie w Japonii (MLX01) i w Niemczech (TR-08).
+
+W laboratorium Katedry Automatyki EAIiIB AGH znajduje się stanowisko przeznaczone do badania magnetycznej lewitacji. Obiektem unoszącym się jest metalowa sfera. Pole magnetyczne jest wytwarzane przez cewkę umieszczoną ponad sferą. Dzięki pracom \cite{Bania1999}, \cite{Bania200.} i \cite{Pilat} wiemy w jaki sposób modelować zachowanie układu, a także identyfikować jego parametry fizyczne.
 
 \begin{figure}[!htb]
-  \centering
-  \begin{subfigure}[b]{0.4\textwidth}
-    \input{img/pic_tras_schematic_v.tex}
-    \caption{Urządzenie (widok z boku)}
-    \label{rys:schtrasv}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.25\textwidth}
-    \input{img/pic_tras_model_schematic_v.tex}
-    \vspace{0.8cm}
-    \caption{Model}
-    \label{rys:schmodelv}
-  \end{subfigure}
-  \caption{Schemat systemu TRAS w płaszczyźnie pionowej}
+\centering
+\includegraphics[scale=0.45]{img/model-rownania.PNG}
+\caption{Schemat stanowiska służący do wyznaczania równań, źródło \cite{Bania200.}}
+\label{rys:model-rownania}
 \end{figure}
 
-\begin{figure}[!htb]
-  \centering
-  \begin{subfigure}[b]{0.4\textwidth}
-    \input{img/pic_tras_schematic_h.tex}
-    \caption{Urządzenie (widok z góry)}
-    \label{rys:schtrash}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.25\textwidth}
-    \input{img/pic_tras_model_schematic_h.tex}
-    \vspace{2.7cm}
-    \caption{Model}
-    \label{rys:schmodelh}
-  \end{subfigure}
-  \caption{Schemat systemu TRAS w płaszczyźnie poziomej}
-\end{figure}
-
-\begin{figure}[!htb]
-  \centering
-  \input{img/pic_tras_model_schematic_ih.tex}
-  \label{rys:schih}
-  \caption{Model układu mas dla momentu bezwładności $I_h(\phi_v)$}
-\end{figure}
-
-\newpage
-
-Momenty działające na helikopter w płaszczyźnie pionowej:
+Z prawa Faradaya, z prawa Kirchoffa ...
 
 \begin{equation}
   \begin{cases}
-    T_{mv} & = l_mF_m(\omega_m) \\
-    T_{tv} & = a_{tv}\omega_t \\
-    T_{fv} & = -f_v\dot{\phi}_v \\
-    T_g    & = -l_rm_rg\sin(\phi_v-\phi_{v0}) \\
-  \end{cases}
+    \frac{dx_1(t)}{dt} & = x_2 \\
+    \frac{dx_2(t)}{dt} & = 10^{-3} g(1-f(x_1(t) x_3^2(t)))  \\
+    \frac{dx_3(t)}{dt} & = -\frac{1}{T} x_3(t) + \frac{k}{T} (u(t) + u_c) \\
+  \end{cases}  
 \end{equation}
 
-Momenty działające na helikopter w płaszczyźnie poziomej:
 
-\begin{equation}
-  \begin{cases}
-    T_{mh} & = a_{mh}\omega_m\cos\phi_v \\
-    T_{th} & = l_tF_t(\omega_t)\cos\phi_v \\
-    T_{fh} & = -f_h\dot{\phi}_h \\
-  \end{cases}
-\end{equation}
-
-Równania dynamiki modelu:
-
-\begin{equation}
-  \begin{cases}
-    \ddot{\phi}_vI_v         & = T_{mv} + T_{tv} + T_{fv} + T_g \\
-    \ddot{\phi}_hI_h(\phi_v) & = T_{mh} + T_{th} + T_{fh} \\
-  \end{cases}
-\end{equation}
-
-Równania dynamiki silników:
-
-\begin{equation}
-  \begin{cases}
-    \dot{\omega}_ma_m & = u_m - H_m^{-1}(\omega_m) \\
-    \dot{\omega}_ta_t & = u_t - H_t^{-1}(\omega_t) \\
-  \end{cases}
-\end{equation}
-
-Dokonując pewnych przekształceń, dostajemy układ równań dynamiki kompletnego
-systemu:
-
-\begin{equation}
-  \begin{cases}
-    \dot{x}_1 & = x_2 \\
-    \dot{x}_2I_v & = l_mF_m(x_5) + a_{tv}x_6 -
-    f_vx_2 - l_rm_rg\sin(x_1-\phi_{v0}) \\
-    \dot{x}_3 & = x_4 \\
-    \dot{x}_4I_h(x_1) & = (a_{mh}x_5 +
-    l_tF_t(x_6))\cos x_1 - f_hx_4 \\
-    \dot{x}_5a_m & = u_m - H_m^{-1}(x_5) \\
-    \dot{x}_6a_t & = u_t - H_t^{-1}(x_6) \\
-  \end{cases}
-\end{equation}
 
