@@ -1,5 +1,0 @@
-\select@language {polish}
-\contentsline {section}{\numberline {1}Model matematyczny obiektu TRAS}{2}
-\contentsline {section}{\numberline {2}Identyfikacja charakterystyk statycznych}{4}
-\contentsline {subsection}{\numberline {2.1}Zale\IeC {\.z}no\IeC {\'s}\IeC {\'c} pr\IeC {\k e}dko\IeC {\'s}ci \IeC {\'s}migie\IeC {\l } od napi\IeC {\k e}cia}{4}
-\contentsline {subsection}{\numberline {2.2}Oszacowanie wp\IeC {\l }ywu tarcia na uk\IeC {\l }ad}{4}
