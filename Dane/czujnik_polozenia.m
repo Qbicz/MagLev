@@ -1,8 +1,10 @@
 % Wykres z pomiaru zapisanego do struktury z czasem
 close all;
+clear all;
+
+load('ML_Sensor.mat')
 
 figure;
-% plot(ident.time, ident.signals(1).values)
 
 % Charakterystyka statyczna
 plot(SensorData.Sensor_V, SensorData.Distance_mm, '.')
