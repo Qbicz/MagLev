@@ -23,13 +23,15 @@ Do pracy z modelem potrzebna jest znajomość położenia sfery, dlatego na rysu
 \end{figure}
 
 
-W pracy \cite{Bania1999} autor dokonał aproksymacji otrzymanej charakterystyki odwrotnej sumą funkcji wykładniczych metodą prób i błędów. Nie będziemy dokonywać takiej aproksymacji, ponieważ podczas pracy z modelem w laboratorium użyjemy bloku "LUT z interpolacją" oferowanego przez Simulink.
+W pracy \cite{Bania1999} autor dokonał aproksymacji otrzymanej charakterystyki odwrotnej sumą funkcji wykładniczych metodą prób i błędów. Nie będziemy dokonywać takiej aproksymacji, ponieważ podczas pracy z modelem w laboratorium użyjemy bloku \textit{LUT z interpolacją} oferowanego przez Simulink.
 
 
 
 \subsection{Identyfikacja parametrów cewki $k, T, u_c$ }
 
 Aby wiedzieć, jak zmienia się prąd cewki w zależności od użytego sterowania, czyli przyłożonego napięcia $u$, należy wyznaczyć parametry $k, T$ oraz $u_c$.
+
+\subsubsection{Pomiary w stanie ustalonym cewki}
 
 Zależność prądu od napięcia jest liniowa
 \begin{equation}
@@ -38,17 +40,46 @@ i = k(u + u_c)
 
 Parametry $k$ i $u_c$ (wzmocnienie oraz stałe napięcie na cewce) wyznaczymy mierząc prąd w stanie ustalonym dla różnych wartości napięcia sterującego.
 
+- prąd w zależności od napięcia sterującego pomierzony, jakie jest przeskalowanie? Czy lepiej użyć oscyloskopu / czy jest rezystor?
+
 [można też mierzyć spadek napięcia na rezystorze pomiarowym bo są duże błędy prądu]
 
 [wykres]
 
-Korzystając z metody najmniejszych kwadratów wyznaczono parametry:
+\subsubsection{Pomiary stanów przejściowych cewki}
+
+Stałą czasową $T$ można wyznaczyć obserwując odpowiedź skokową prądu.
+
+
+...
+
+...
+
+
+
+
+
+Korzystając z metody najmniejszych kwadratów wyznaczono parametry, których wartości umieszczono w tabeli.
+
+\begin{tabular}{c r @{,} l}
+Wyrażenie &
+\multicolumn{2}{c}{Wartość}\\ \hline
+$k$ & ... \\
+$T$ & ...&.. \\
+$u_c$ & ..&. \\
+\end{tabular}
 
 
 
 \subsection{Identyfikacja indukcyjności cewki $L(x_1)$}
 
-[TODO]
+W celu identyfikacji zależności indukcyjności cewki od położenia w układzie otwartym należy wykonać serię pomiarów napięcia i prądu dla różnych położeń sfery. Zmierzona rezystancja cewki wynosi $R = ..$. Indukcyjność obliczymy ze wzoru
+\begin{equation}
+L = \dfrac{1}{\omega}\sqrt{\dfrac{U^2}{I^2} - R^2}
+\end{equation}
+
+gdzie
+
 
 %\begin{figure}[!htb]
 %\centering

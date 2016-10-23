@@ -23,7 +23,7 @@ Do pracy z modelem potrzebna jest znajomość położenia sfery, dlatego na rysu
 \end{figure}
 
 
-W pracy \cite{Bania1999} autor dokonał aproksymacji otrzymanej charakterystyki odwrotnej sumą funkcji wykładniczych metodą prób i błędów. Nie będziemy dokonywać takiej aproksymacji, ponieważ podczas pracy z modelem w laboratorium użyjemy bloku "LUT z interpolacją" oferowanego przez Simulink.
+W pracy \cite{Bania1999} autor dokonał aproksymacji otrzymanej charakterystyki odwrotnej sumą funkcji wykładniczych metodą prób i błędów. Nie będziemy dokonywać takiej aproksymacji, ponieważ podczas pracy z modelem w laboratorium użyjemy bloku \textit{LUT z interpolacją} oferowanego przez Simulink.
 
 
 
@@ -39,6 +39,8 @@ i = k(u + u_c)
 \end{equation}
 
 Parametry $k$ i $u_c$ (wzmocnienie oraz stałe napięcie na cewce) wyznaczymy mierząc prąd w stanie ustalonym dla różnych wartości napięcia sterującego.
+
+- prąd w zależności od napięcia sterującego pomierzony, jakie jest przeskalowanie? Czy lepiej użyć oscyloskopu / czy jest rezystor?
 
 [można też mierzyć spadek napięcia na rezystorze pomiarowym bo są duże błędy prądu]
 
@@ -62,16 +64,31 @@ Korzystając z metody najmniejszych kwadratów wyznaczono parametry, których wa
 \begin{tabular}{c r @{,} l}
 Wyrażenie &
 \multicolumn{2}{c}{Wartość}\\ \hline
-$k$ & 3&1416 \\
-$T$ & 36&46 \\
-$u_c$ & 80662&7 \\
+$k$ & ... \\
+$T$ & ...&.. \\
+$u_c$ & ..&. \\
 \end{tabular}
 
 
 
 \subsection{Identyfikacja indukcyjności cewki $L(x_1)$}
 
-[TODO]
+W celu identyfikacji zależności indukcyjności cewki od położenia w układzie otwartym należy wykonać serię pomiarów napięcia i prądu dla różnych położeń sfery. Zmierzona rezystancja cewki wynosi $R = ..$. Indukcyjność obliczymy ze wzoru
+\begin{equation}
+L = \dfrac{1}{\omega}\sqrt{\dfrac{U^2}{I^2} - R^2}
+\end{equation}
+
+gdzie
+$\omega$ - częstość napięcia zasilającego ($\omega$ = 314 rad/s)
+$U$ - napięcie skuteczne na cewce [V]
+$I$ - prąd płynący przez cewkę [A]
+$R$ - rezystancja cewki
+
+[wykres doświadczenia]
+
+Znaleziona funkcja ma postać
+$L(x_1) = ...$
+
 
 %\begin{figure}[!htb]
 %\centering
