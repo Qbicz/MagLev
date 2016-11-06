@@ -11,14 +11,22 @@ W laboratorium Katedry Automatyki EAIiIB AGH znajduje się stanowisko przeznaczo
 \label{rys:model-rownania}
 \end{figure}
 
-Z prawa Faradaya, z prawa Kirchoffa ...
-
 \begin{equation}
   \begin{cases}
-    \frac{dx_1(t)}{dt} & = x_2 \\
-    \frac{dx_2(t)}{dt} & = 10^{-3} g(1-f(x_1(t) x_3^2(t)))  \\
-    \frac{dx_3(t)}{dt} & = -\frac{1}{T} x_3(t) + \frac{k}{T} (u(t) + u_c) \\
+    \dot x_1 & = x_2 \\
+    \dot x_2 & = \dfrac{1}{2m} \dfrac{dL(x_1)}{dx_1} (x_1(t) x_3^2(t))) + 10^{-3} g + z_1(t)  \\
+    \dot x_3 & = -\frac{1}{T} x_3(t) + \frac{k}{T} (u(t) + u_c + z_2) \\
   \end{cases}  
+\end{equation}
+
+Zmienne stanu i sterowanie spełniają warunki:
+\begin{equation}
+\begin{cases}
+x_1(t) \in [0, x_{max}] \\
+x_2(t) \in R
+x_3(t) \in [ku_c, k(u_c+u_{max})] \\
+u(t) \in [0, u_{max}]
+\end{cases}
 \end{equation}
 
 

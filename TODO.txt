@@ -1,0 +1,10 @@
+Laboratorium problemowe TODO:
+
+1. przygotowaæ skrypt do dopasowania sta³ej czasowej T i wzmocnienia k do skoku pr¹du (metod¹ najmniejszych kwadratów)
+2. przeanalizowaæ wp³yw filtrów i PWM na zachowanie uk³adu
+3. zlinearyzowaæ model
+4. dostaæ bieguny
+5. nauczyæ siê rozmieszczaæ bieguny - zrobiæ regulator
+6. zdyskretyzowaæ uk³ad
+7. przygotowaæ obserwator Luenbergera
+8. sprawdziæ jakoœæ regulacji i porównaæ z pocz¹tkowym PID
