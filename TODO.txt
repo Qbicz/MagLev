@@ -2,6 +2,12 @@ Laboratorium problemowe TODO:
 
 - jak przeskalować prąd
 - pomiar indukcyjności
+- opisać zmienne w sprawku
+- podać wzór na przewidywaną postać L(x) i L'(x)
+- opisać eksperyment z PWM o niskiej częstotliwości -> Umax, Imax w stanie ustalonym do wzoru na L, dodatkowo mamy stałą czasową cewki z rdzeniem
+- punkty równowagi -> potrzebujemy znaleźć x0, u0 (potrzebny regulator)
+- do sprawozdania linearyzacja (przeanalizować)
+- uwzględnić przeskalowany prąd z pliku ML_Sensor_przeskalowany_prad.mat
 
 1. przygotować skrypt do dopasowania stałej czasowej T i wzmocnienia k do skoku prądu (metodą najmniejszych kwadratów)
 2. przeanalizować wpływ filtrów i PWM na zachowanie układu
