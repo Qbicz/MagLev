@@ -53,7 +53,8 @@ Parametry $k$ i $u_c$ (wzmocnienie oraz stałe napięcie na cewce) wyznaczymy mi
 
 \subsubsection{Pomiary stanów przejściowych cewki}
 
-Stałą czasową $T$ można wyznaczyć obserwując odpowiedź skokową prądu.
+Stałą czasową cewki $T$ można wyznaczyć obserwując odpowiedź skokową prądu.
+Preskaler 4096.
 
 
 ...
@@ -104,11 +105,11 @@ Poszukujemy funkcji postaci
 L(x_1) = L_0 + 2 \cdot 10^{-3} \dfrac{mg}{a^2x + ab}
 \end{equation}
 Ze względu na bardzo małe zmiany indukcyjności podczas pomiarów w pętli otwartej, postanowiliśmy użyć regulatora stabilizującego i znaleźć pochodną indukcyjności korzystając z równania drugiego modelu \ref{modelMagLev}.
-Z pomocą prowadzącego dobrane zostały nastawy pozwalające uzyskać efekt stabilizacji z wystarczającą dokładnością. Przedstawia je Tabela \ref{tab:parametryPID}.
+Z pomocą prowadzącego dobrane zostały nastawy pozwalające uzyskać efekt stabilizacji z wystarczającą dokładnością. Przedstawia je tabela \ref{tab:parametryPID}.
 
 \begin{table}[ht]
 \begin{center}
-  \begin{tabular}{| l | c | r | }
+  \begin{tabular}{| l | c | }
     \hline
     człon & wartość \\ \hline
     P 		& 50 \\ \hline
@@ -124,14 +125,51 @@ Z pomocą prowadzącego dobrane zostały nastawy pozwalające uzyskać efekt sta
 \end{table}
 
 Dysponując możliwością ustawiania pozycji sfery mogliśmy przejść do próby wyznaczenia pochodnej indukcyjności. Poszukiwana postać pochodnej funkcji $L$:
-\begin{equation}
+\begin{equation} \label{eq:L'}
 L'(x) = - 2 \cdot 10^{-3}\dfrac{mg}{(ax + b)^2}
 \end{equation}
 
 W stanie ustalonym zachodzi liniowa zależność prądu w stanie ustalonym od położenia:
-\begin{equation}
+\begin{equation} \label{eq:Ix}
 I(x) = ax + b = k(u + u_c)
 \end{equation}
+
+Przypuszczenia te potwierdza rysunek \ref{rys:prad_od_polozenia}, przedstawiający dane zebrane podczas identyfikacji obiektu.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.75]{img/identyfikacja_prad_cewki_od_polozenia.png}
+\caption{Identyfikacja prądu cewki w funkcji położenia}
+\label{rys:prad_od_polozenia}
+\end{figure}
+
+Dzięki identyfikacji możliwe było wyznaczenie parametrów prostej wspominanej we wzorze \ref{eq:Ix}, które niezbędne są do wyznaczenia wzoru na pochodną indukcyjności (wzór \ref{eq:L'}).
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.75]{img/identyfikacja_pochodna_indykcyjnosci_od_polozenia.png}
+\caption{Identyfikacja pochodnej indukcyjności cewki w funkcji położenia}
+\label{rys:pochodna_od_polozenia}
+\end{figure}
+
+Wyznaczone parametry przedstawia tabela \ref{tab:parametry_ident}.
+
+\begin{table}[!ht]
+\begin{center}
+  \begin{tabular}{| l | c | }
+    \hline
+    parametr 	& wartość \\ \hline
+    a 		  	& 0.0928 \\ \hline
+    b 		  	& 0.0214 \\ \hline
+    kolejny parametr 			& 2.5 \\ \hline
+    kolejny parametr 		& 0.52 \\
+    \hline
+
+  \end{tabular}
+  \caption{Parametry wyznaczone w identyfikacji obiektu}
+  \label{tab:parametry_ident}
+\end{center}
+\end{table}
 
 \subsection{Weryfikacja modelu}
 

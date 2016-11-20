@@ -3,17 +3,17 @@ Laboratorium problemowe TODO:
 [DONE] jak przeskalować prąd
 [DONE] pomiar indukcyjności
 [DONE] opisać zmienne w sprawku
-- podać wzór na przewidywaną postać L(x) i L'(x)
-- umieścić w sprawku wyniki dopasowania L'(x) - pliczek identyfikacja_stala_T_Lx.m
+[DONE] podać wzór na przewidywaną postać L(x) i L'(x)
+[DONE] umieścić w sprawku wyniki dopasowania L'(x) - pliczek identyfikacja_stala_T_Lx.m
 - opisać eksperyment z PWM o niskiej częstotliwości 
     -> mamy stałą czasową cewki z rdzeniem przy narastaniu i opadaniu - wyznaczyc ja z wykresow
     -> można dodać uwagi na temat tego jak kulka dotyka elektromagnesu
-- punkty równowagi -> potrzebujemy znaleźć x0, u0 (potrzebny regulator)
+[DONE] punkty równowagi -> potrzebujemy znaleźć x0, u0 (potrzebny regulator)
 - do sprawozdania linearyzacja (przeanalizować)
-- uwzględnić przeskalowany prąd z pliku ML_Sensor_przeskalowany_prad.mat
+[DONE] uwzględnić przeskalowany prąd z pliku ML_Sensor_przeskalowany_prad.mat
 
 
-1. przygotować skrypt do dopasowania stałej czasowej T i wzmocnienia k do skoku prądu (metodą najmniejszych kwadratów)
+[DONE] 1. przygotować skrypt do dopasowania stałej czasowej T i wzmocnienia k do skoku prądu (metodą najmniejszych kwadratów)
 2. przeanalizować wpływ filtrów i PWM na zachowanie układu
 3. zlinearyzować model
 4. dostać bieguny
@@ -21,3 +21,6 @@ Laboratorium problemowe TODO:
 6. zdyskretyzować układ
 7. przygotować obserwator Luenbergera
 8. sprawdzić jakość regulacji i porównać z początkowym PID
+
+
+* zmienic legenede  w pochodnej induckyjnosci (tam nie bylo dopasownaia, to po prostu wykres)
