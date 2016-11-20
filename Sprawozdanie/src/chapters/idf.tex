@@ -83,7 +83,7 @@ $u_c$ & ..&. \\
 
 \subsection{Identyfikacja indukcyjności cewki $L(x_1)$}
 
-W celu identyfikacji zależności indukcyjności cewki od położenia w układzie otwartym należy wykonać serię pomiarów napięcia i prądu dla różnych położeń sfery. Zmierzona rezystancja cewki wynosi $R = ..$. Indukcyjność obliczymy ze wzoru
+W celu identyfikacji zależności indukcyjności cewki od położenia w układzie otwartym należy wykonać serię pomiarów napięcia i prądu dla różnych położeń sfery. Zmierzona rezystancja cewki wynosi $R = 4,7\Omega$. Indukcyjność obliczymy ze wzoru
 \begin{equation}
 L = \dfrac{1}{\omega}\sqrt{\dfrac{U^2}{I^2} - R^2}
 \end{equation}
@@ -99,9 +99,21 @@ $R$ - rezystancja cewki
 
 [wykres doświadczenia]
 
-Znaleziona funkcja ma postać
-$L(x_1) = ...$
+Poszukujemy funkcji postaci
+\begin{equation}
+L(x_1) = L_0 + 2 \cdot 10^{-3} \dfrac{mg}{a^2x + ab}
+\end{equation}
+Ze względu na bardzo małe zmiany indukcyjności podczas pomiarów w pętli otwartej, postanowiliśmy użyć regulatora stabilizującego i znaleźć pochodną indukcyjności korzystając z równania drugiego modelu \ref{modelMagLev}.
 
+Poszukiwana postać pochodnej funkcji $L$:
+\begin{equation}
+L'(x) = - 2 \cdot 10^{-3}\dfrac{mg}{(ax + b)^2}
+\end{equation}
+
+W stanie ustalonym zachodzi liniowa zależność prądu w stanie ustalonym od położenia:
+\begin{equation}
+I(x) = ax + b = k(u + u_c)
+\end{equation}
 
 \subsection{Weryfikacja modelu}
 
