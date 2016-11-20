@@ -104,8 +104,26 @@ Poszukujemy funkcji postaci
 L(x_1) = L_0 + 2 \cdot 10^{-3} \dfrac{mg}{a^2x + ab}
 \end{equation}
 Ze względu na bardzo małe zmiany indukcyjności podczas pomiarów w pętli otwartej, postanowiliśmy użyć regulatora stabilizującego i znaleźć pochodną indukcyjności korzystając z równania drugiego modelu \ref{modelMagLev}.
+Z pomocą prowadzącego dobrane zostały nastawy pozwalające uzyskać efekt stabilizacji z wystarczającą dokładnością. Przedstawia je Tabela \ref{tab:parametryPID}.
 
-Poszukiwana postać pochodnej funkcji $L$:
+\begin{table}[ht]
+\begin{center}
+  \begin{tabular}{| l | c | r | }
+    \hline
+    człon & wartość \\ \hline
+    P 		& 50 \\ \hline
+    I 		& 5 \\ \hline
+    D 		& 2.5 \\ \hline
+    Offset 	& 0.52 \\
+    \hline
+
+  \end{tabular}
+  \caption{Parametry użytego regulatora PID}
+  \label{tab:parametryPID}
+\end{center}
+\end{table}
+
+Dysponując możliwością ustawiania pozycji sfery mogliśmy przejść do próby wyznaczenia pochodnej indukcyjności. Poszukiwana postać pochodnej funkcji $L$:
 \begin{equation}
 L'(x) = - 2 \cdot 10^{-3}\dfrac{mg}{(ax + b)^2}
 \end{equation}

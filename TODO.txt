@@ -2,7 +2,7 @@ Laboratorium problemowe TODO:
 
 [DONE] jak przeskalować prąd
 [DONE] pomiar indukcyjności
-- opisać zmienne w sprawku
+[DONE] opisać zmienne w sprawku
 - podać wzór na przewidywaną postać L(x) i L'(x)
 - umieścić w sprawku wyniki dopasowania L'(x) - pliczek identyfikacja_stala_T_Lx.m
 - opisać eksperyment z PWM o niskiej częstotliwości 
