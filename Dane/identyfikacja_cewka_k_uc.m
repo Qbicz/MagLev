@@ -1,6 +1,6 @@
-%Autorzy: Filip Kubicz, Piotr Pa³ucki
+%Autorzy: Filip Kubicz, Piotr Palucki
 %Opis: 
-%Skrypt do identyfikacji parametrów cewki: wzmocnienia k i sta³ego napiêcia
+%Skrypt do identyfikacji parametrow cewki: wzmocnienia k i stalego napiecia
 %sterowania u_c
 
 
@@ -22,7 +22,7 @@ y = k*x+u_c;
 figure
 hold on;
 plot(U, Y, '*', x, y);
-title('Zale¿noœæ pr¹du cewki od sterowania');
+title('ZaleÅ¼noÅ›Ä‡ prÄ…du cewki od sterowania');
 xlabel('U');
 ylabel('I [A]');
-legend('Dane pomiarowe','Dopasowanie metod¹ najmniejszych kwadratów');
+legend('Dane pomiarowe','Dopasowanie metodÄ… najmniejszych kwadratÃ³w');

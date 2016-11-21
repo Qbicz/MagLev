@@ -1,3 +1,7 @@
+%Autorzy: Filip Kubicz, Piotr Pałucki
+%Skrypt do dopasowania metodą regresji liniowej parametrów pochodnej
+%indukcyjności
+
 clear all; close all;
 load identyfikacja_indukcyjnosc
 
@@ -5,11 +9,11 @@ load identyfikacja_indukcyjnosc
 %Based on: https://www.mathworks.com/help/matlab/data_analysis/linear-regression.html
 %Linear regression for y = ax + b -> Y = AB
 Y = prad_A;
-A = [x_mm ones(length(x_mm), 1)];
+A = [ ones(length(x_mm), 1) x_mm];
 % will be B = [a b];
-B = A\Y;
-a = B(1) 
-b = B(2)
+B = A\Y
+b = B(1) 
+a = B(2)
 
 
 %Check results - plot data on one figure
@@ -27,7 +31,7 @@ legend('Dane pomiarowe','Dopasowanie metodą najmniejszych kwadratów');
 
 
 %Try to find L'(x) = -2*mg*10^-3 / (ax+b)^2
-m = 55; %g
+m = 58; %g
 g = 9.81; %m/s^2s
 
 Lprim = -(2*m*g*(10^-3))./((a*x+b).^2);
