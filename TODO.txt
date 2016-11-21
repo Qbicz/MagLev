@@ -6,11 +6,12 @@ Laboratorium problemowe TODO:
 [DONE] podać wzór na przewidywaną postać L(x) i L'(x)
 [DONE] umieścić w sprawku wyniki dopasowania L'(x) - pliczek identyfikacja_stala_T_Lx.m
 - opisać eksperyment z PWM o niskiej częstotliwości 
-    -> mamy stałą czasową cewki z rdzeniem przy narastaniu i opadaniu - wyznaczyc ja z wykresow
+[DONE]    -> mamy stałą czasową cewki z rdzeniem przy narastaniu i opadaniu - wyznaczyc ja z wykresow
     -> można dodać uwagi na temat tego jak kulka dotyka elektromagnesu
 [DONE] punkty równowagi -> potrzebujemy znaleźć x0, u0 (potrzebny regulator)
 - do sprawozdania linearyzacja (przeanalizować)
-[DONE] uwzględnić przeskalowany prąd z pliku ML_Sensor_przeskalowany_prad.mat
+uwzględnić przeskalowany prąd z pliku ML_Sensor_przeskalowany_prad.mat i na tej podstawie wyznaczyc k i uc
+lub zebrac raz jeszcze pomiary
 
 
 [DONE] 1. przygotować skrypt do dopasowania stałej czasowej T i wzmocnienia k do skoku prądu (metodą najmniejszych kwadratów)
@@ -24,3 +25,4 @@ Laboratorium problemowe TODO:
 
 
 * zmienic legenede  w pochodnej induckyjnosci (tam nie bylo dopasownaia, to po prostu wykres)
+* zaleznosc pradu od napiecia sterujacego - zeby wyznaczyc k i uc metoda najmniejszych

@@ -54,31 +54,31 @@ Parametry $k$ i $u_c$ (wzmocnienie oraz stałe napięcie na cewce) wyznaczymy mi
 \subsubsection{Pomiary stanów przejściowych cewki}
 
 Stałą czasową cewki $T$ można wyznaczyć obserwując odpowiedź skokową prądu.
-Preskaler 4096.
+Zwalniamy PWM, zapinamy sterowanie (wypelnienie) na 50 procent i dzięki temu mamy skoki typowo napięciowe. Preskaler 4096.
 
-
-...
-
-...
-
-
-\begin{figure}[!htb]
+\begin{figure}[H]
 \centering
-\includegraphics[scale=0.85]{img/skok_pradu_bezfiltra_pwm_szybkie.png}
-\caption{Identyfikacja stałej czasowej narastania prądu cewki [bez filtra, z PWM]}
-\label{rys:skok_pradu_bezfiltra}
+\includegraphics[scale=0.85]{img/identyfikacja_stala_narastanie_0245.png}
+\caption{Identyfikacja parametrów statycznych cewki}
+\label{rys:cewka_k_uc}
 \end{figure}
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.85]{img/identyfikacja_stala_opadanie_0230.png}
+\caption{Identyfikacja parametrów statycznych cewki}
+\label{rys:cewka_k_uc}
+\end{figure}
 
-Korzystając z metody najmniejszych kwadratów wyznaczono parametry, których wartości umieszczono w tabeli.
+%\begin{figure}[!ht]
+%\centering
+%\includegraphics[scale=0.85]{img/skok_pradu_bezfiltra_pwm_szybkie.png}
+%\caption{Identyfikacja stałej czasowej narastania prądu cewki [bez filtra, z PWM]}
+%\label{rys:skok_pradu_bezfiltra}
+%\end{figure}
 
-\begin{tabular}{c r @{,} l}
-Wyrażenie &
-\multicolumn{2}{c}{Wartość}\\ \hline
-$k$ & ... \\
-$T$ & ...&.. \\
-$u_c$ & ..&. \\
-\end{tabular}
+
+Korzystając z metody najmniejszych kwadratów wyznaczono parametry, których wartości umieszczono w tabeli  \ref{tab:parametry_ident}.
 
 
 
@@ -136,7 +136,7 @@ I(x) = ax + b = k(u + u_c)
 
 Przypuszczenia te potwierdza rysunek \ref{rys:prad_od_polozenia}, przedstawiający dane zebrane podczas identyfikacji obiektu.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.75]{img/identyfikacja_prad_cewki_od_polozenia.png}
 \caption{Identyfikacja prądu cewki w funkcji położenia}
@@ -145,26 +145,29 @@ Przypuszczenia te potwierdza rysunek \ref{rys:prad_od_polozenia}, przedstawiają
 
 Dzięki identyfikacji możliwe było wyznaczenie parametrów prostej wspominanej we wzorze \ref{eq:Ix}, które niezbędne są do wyznaczenia wzoru na pochodną indukcyjności (wzór \ref{eq:L'}).
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.75]{img/identyfikacja_pochodna_indykcyjnosci_od_polozenia.png}
 \caption{Identyfikacja pochodnej indukcyjności cewki w funkcji położenia}
 \label{rys:pochodna_od_polozenia}
 \end{figure}
 
-Wyznaczone parametry przedstawia tabela \ref{tab:parametry_ident}.
+Wszystkie wyznaczone parametry przedstawia tabela \ref{tab:parametry_ident}.
 
-\begin{table}[!ht]
+\begin{table}[H]
 \begin{center}
   \begin{tabular}{| l | c | }
     \hline
     parametr 	& wartość \\ \hline
-    a 		  	& 0.0928 \\ \hline
-    b 		  	& 0.0214 \\ \hline
+    $k$ & ... \\ \hline
+    $T_{up}$ & $0.0245 s$  \\ \hline
+	$T_{down}$ & $0.023 s$  \\ \hline
+	$u_c$ & .. 	 \\ \hline
+    $a$ 		  	& $0.0928$ \\ \hline
+    $b$		  	& $0.0214$ \\ \hline
     kolejny parametr 			& 2.5 \\ \hline
     kolejny parametr 		& 0.52 \\
     \hline
-
   \end{tabular}
   \caption{Parametry wyznaczone w identyfikacji obiektu}
   \label{tab:parametry_ident}
