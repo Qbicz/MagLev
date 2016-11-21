@@ -1,0 +1,39 @@
+\section{Regulator liniowo-kwadratowy}
+
+Po weryfikacji modelu, równania zostały zlinearyzowane. Przyjęto kilka punktów równowagi: 12mm, 14mm, 16mm i 18mm, aby móc przełączać otrzymany później regulator podczas pracy układu i stabilizować go w różnych punktach pracy.
+
+\subsection{Linearyzacja}
+
+Linearyzacji modelu nieliniowego dokonuje się w otoczeniu punktu równowagi, zastępując nieliniowe równania stanu
+\begin{equation}
+\dot{x} = f(x)
+\end{equation}
+liniowymi równaniami, które można przedstawić w postaci macierzowej
+\begin{equation}
+\dot{x} = Ax + Bu
+\end{equation}
+
+Aby otrzymać macierz stanu A, należy wyznaczyć macierz Jacobiego pierwszych pochodnych
+\begin{equation}
+J = \dfrac{\partial f}{\partial x}(x)
+\end{equation}
+a następnie obliczyć jej wartości dla poszczególnych punktów stacjonarnych $x*$
+\begin{equation}
+A = J(x*) = \dfrac{\partial f}{\partial x}(x*)
+\end{equation}
+
+Dla równań magnetycznej lewitacji (\ref{modelMagLev}) zlinearyzowana macierz ma postać
+
+\[
+\begin{array}{lc}
+A = &
+\begin{bmatrix} 0 & 1 & 0 \\ \dfrac{2 \cdot 10^{-3} agx_3^2}{(ax_1+b)^3} & 0 & \dfrac{-2 \cdot 10^{-3} gx_3}{(ax_1+b)^2} \\ 0 & 0 & -\dfrac{1}{T}
+\end{bmatrix}
+\end{array}
+\]
+
+W punkcie równowagi $ x_{0_14} = 0,014 m $
+
+\subsection{Synteza regulatora LQ}
+
+
