@@ -31,10 +31,13 @@ x3stab = 0.024; % [A]
 A21 = 0.002*a*g*x3stab^2/(a*x1stab+b)^3
 A23 = -0.002*g*x3stab/(a*x1stab+b)^2
 
-Q = diag([4 1 1])
+Q = diag([10 1 1])
 R = 1
+L = 1 % wzmocnienie wartosci zadanej
 A = [ 0   1  0;
       A21 0  A23;
       0   0  -1/T]
 B = [ 0;  0; k/T]
 [K,S,E] = lqr(A,B,Q,R)
+
+sim('nieliniowy')

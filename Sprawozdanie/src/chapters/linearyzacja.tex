@@ -32,8 +32,88 @@ A = &
 \end{array}
 \]
 
-W punkcie równowagi $ x_{0_{14}} = 0,014 m $
+W punkcie równowagi $ x_{0_{14}} = \begin{bmatrix} 0,014 \\
+0 \\
+0,024
+\end{bmatrix}
+$ macierz stanu i wektor sterowań przyjmują wartości
+\[
+\begin{array}{lc}
+A = &
+\begin{bmatrix} 0 & 1 & 0 \\
+0,0897 & 0 & -0,9139 \\
+0 & 0 & -41,6667
+\end{bmatrix}
+\\
+B = & \begin{bmatrix}
+0 \\ 0 \\ 10,8625
+\end{bmatrix}
+\end{array}
+\]
 
 \subsection{Synteza regulatora LQ}
+
+Regulator liniowo-kwadratowy dla nieskończonego horyzontu czasowego to liniowy regulator od całego stanu, który sterowaniem
+\begin{equation}
+u = -Kx
+\end{equation}
+Sprowadza zlinearyzowany układ do zerowego punktu równowagi. Minimalizuje przy tym funkcję celu
+\begin{equation}
+J = \dfrac{1}{2} \int _0^{\infty} {x^T Q x + u^T R u}\: dt
+\end{equation}
+
+Macierz $K$ jest dana wzorem
+\begin{equation}
+K = R^{-1}B^T P
+\end{equation}
+gdzie $P$ to rozwiązanie algebraicznego równania Riccatiego
+\begin{equation}
+A^T P + PA -PBR^{-1}B^T P + Q = 0
+\end{equation}
+
+Dla macierzy wag
+\[
+\begin{array}{lc}
+Q = &
+\begin{bmatrix} 4 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+\\
+R = & \begin{bmatrix}
+1
+\end{bmatrix}
+\end{array}
+\]
+    
+Macierz regulatora optymalnego LQ została obliczona jako:
+\[
+\begin{array}{lc}
+K = &
+\begin{bmatrix}
+ -2,4362 \\  -4,7518  \\  0,2278
+\end{bmatrix}
+\end{array}
+\]
+
+Powstały układ zamknięty charakteryzuje się wartościami własnymi
+\[
+\begin{array}{lc}
+E = eig(A-BK) &
+\begin{bmatrix}
+  -43,058 \\
+  -0,5413 + 0,4204i \\
+  -0,5413 - 0,4204i
+\end{bmatrix}
+\end{array}
+\]
+
+Jak wspomniano na początku rozdziału, chcemy stabilizować układ w niezerowych punktach równowagi, gdzie sterowanie ma pewną ustaloną, niezerową wartość. W tym celu używamy prawa sterowania
+\begin{equation}
+u = -Kx + Lr
+\end{equation}
+gdzie $r$ jest wartością zadaną, a $L$ macierzą wag wartości zadanej.
+
+
 
 
