@@ -16,8 +16,8 @@ b = 0.0214;     %parametry cewki
 
 % Warunki pocz�tkowe
 x10 = 0.013; % m, pozycja sfery
-x20 = -1e-9;  %m/s, predkosc sfery
-x30 = 1e-9;  %A, prad cewki
+x20 = -1e-10;  %m/s, predkosc sfery
+x30 = 1e-10;  %A, prad cewki
 
 % wartosc zadana
 x1zad = 0.014 % [m]
@@ -27,7 +27,7 @@ x1zad = 0.014 % [m]
 
 % regulator LQR dla zlinearyzowanego modelu
 x1stab = 0.014  % [m]
-x3stab = 0.024; % [A]
+x3stab = 0.023; % [A]
 A21 = 0.002*a*g*x3stab^2/(a*x1stab+b)^3
 A23 = -0.002*g*x3stab/(a*x1stab+b)^2
 
@@ -38,6 +38,10 @@ A = [ 0   1  0;
       A21 0  A23;
       0   0  -1/T]
 B = [ 0;  0; k/T]
+
+OB = obsv(A, [1 0 0])
+ST = ctrb(A, B)
+
 [K,S,E] = lqr(A,B,Q,R)
 
 sim('nieliniowy')
