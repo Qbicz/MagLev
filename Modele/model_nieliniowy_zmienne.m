@@ -11,10 +11,15 @@ k = 0.2607;     %wspolczynnik wzmocnienia cewki
 a = 0.0928;     %parametry cewki
 b = 0.0214;     %parametry cewki
 a = a+b;
-%b = a-b
-%a = a-b
+b = a-b
+a = a-b
 
 % Warunki pocz�tkowe
-x10 = 0; % m, pozycja sfery
+x10 = 0.013; % m, pozycja sfery
 x20 = 0.0;  %m/s, predkosc sfery
-x30 = 0;  %A, prad cewki
+x30 = 0.0;  %A, prad cewki
+
+% wartosc zadana
+x1zad = 0.014
+
+% Ziegler dla Kp = 5: T0 = 4,5 sek
