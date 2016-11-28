@@ -15,12 +15,12 @@ b = 0.0214;     %parametry cewki
 %a = a-b
 
 % Warunki pocz�tkowe
-x10 = 0.013; % m, pozycja sfery
+x10 = 0.010; % m, pozycja sfery
 x20 = -1e-10;  %m/s, predkosc sfery
 x30 = 1e-10;  %A, prad cewki
 
 % wartosc zadana
-x1zad = 0.014 % [m]
+x1zad = 0.012 % [m]
 
 % Ziegler dla Kp = 5: T0 = 4,5 sek
 % Kp = 3, Ki = 2.2, Kd = 0.5
@@ -33,7 +33,11 @@ A23 = -0.002*g*x3stab/(a*x1stab+b)^2
 
 Q = diag([10 1 1])
 R = 1
-L = 1 % wzmocnienie wartosci zadanej
+L = 2.46 % wzmocnienie wartosci zadanej
+% L = 2.6 dla 14 mm
+% L = 2.73 dla 16mm
+% L = 2.46 dla 12 mm - wszystko dla linearyzacji w [0.014 0 0.023]
+%u0 = 0.014 * L % sterowanie ustalone LQR
 A = [ 0   1  0;
       A21 0  A23;
       0   0  -1/T]
