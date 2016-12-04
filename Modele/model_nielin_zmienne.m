@@ -14,7 +14,7 @@ a = a+b;
 b = a-b
 a = a-b
 
-Warunki pocz?tkowe
+%Warunki pocz?tkowe
 x10 = 0.010; % m, pozycja sfery
 x20 = -1e-10;  %m/s, predkosc sfery
 x30 = 1e-9;  %A, prad cewki
