@@ -17,7 +17,7 @@ a = a-b
 %Warunki pocz?tkowe
 x10 = 0.010; % m, pozycja sfery
 x20 = -1e-10;  %m/s, predkosc sfery
-x30 = 1e-9;  %A, prad cewki
+x30 = 0;  %A, prad cewki
 
 % wartosc zadana
 x1zad = 0.012 % [m]
@@ -27,14 +27,14 @@ x1zad = 0.012 % [m]
 
 % regulator LQR dla zlinearyzowanego modelu
 x1stab = 0.014  % [m]
-x3stab = 1; % [A]
+x3stab = 1.23; % [A]
 %x3stab = 0.023; % [A]
 A21 = 0.002*a*g*x3stab^2/(a*x1stab+b)^3
 A23 = -0.002*g*x3stab/(a*x1stab+b)^2
 
 Q = diag([10 1 1])
 R = 1
-L = 10 % wzmocnienie wartosci zadanej
+L = 0.07 % wzmocnienie wartosci zadanej
 % L = 2.6 dla 14 mm
 % L = 2.73 dla 16mm
 % L = 2.46 dla 12 mm - wszystko dla linearyzacji w [0.014 0 0.023]

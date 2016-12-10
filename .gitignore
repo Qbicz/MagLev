@@ -1,0 +1,4 @@
+*.mexw64
+*.lib
+*.exp
+*.synctex.gz

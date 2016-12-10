@@ -3,13 +3,16 @@
 clear all;
 close all;
 
-load('udana_stabilizacja_nieliniowego_PID_sprzezenie_plus_minus.mat')
+%load('udana_stabilizacja_nieliniowego_PID_sprzezenie_plus_minus.mat')
+load('model_LQR.mat');
+N = 1000 %floor(length(ModelNieliniowy.time)/3); % variable-step, it doesnt work!
+
 %% Przyciecie czasu
-t = ModelNieliniowy.time(1:40000);
-x = ModelNieliniowy.signals(1).values(1:40000);
-v = ModelNieliniowy.signals(2).values(1:40000);
-i = ModelNieliniowy.signals(3).values(1:40000);
-u = ModelNieliniowy.signals(4).values(1:40000);
+t = ModelNieliniowy.time(1:N);
+x = ModelNieliniowy.signals(1).values(1:N);
+v = ModelNieliniowy.signals(2).values(1:N);
+i = ModelNieliniowy.signals(3).values(1:N);
+u = ModelNieliniowy.signals(4).values(1:N);
 
 figure;
 
