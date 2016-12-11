@@ -13,8 +13,6 @@ Poszukujemy charakterystyki statycznej $g(x_1)$, którą otrzymamy przykręcają
 
 Do pracy z modelem potrzebna jest znajomość położenia sfery, dlatego na rysunku \ref{img:gx} charakterystyka odwrotną do zależności \ref{eq:gx}.
 
-[trzeba przeskalować napięcie jeszcze, można zrobić wykres od -ux]
-
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=1]{img/czujnik_polozenia.png}
@@ -33,12 +31,12 @@ Aby wiedzieć, jak zmienia się prąd cewki w zależności od użytego sterowani
 
 \subsubsection{Pomiary w stanie ustalonym cewki}
 
-Zależność prądu od napięcia jest liniowa
+Zależność prądu od napięcia może być dość dobrze przybliżona funkcją liniową
 \begin{equation}
 i = k(u + u_c)
 \end{equation}
 
-Parametry $k$ i $u_c$ (wzmocnienie oraz stałe napięcie na cewce) wyznaczymy mierząc prąd w stanie ustalonym dla różnych wartości napięcia sterującego.
+Parametry $k$ i $u_c$ (wzmocnienie oraz stałe napięcie na cewce) wyznaczymy mierząc prąd w stanie ustalonym dla różnych wartości napięcia sterującego. Poniżej przedstawiono wykres obrazujący uśrednione pomiary prądu i przy zadanym sterowaniu. Wyznaczone parametry $k$ i $u_c$ przedstawia tabela \ref{tab:parametry_ident}.
 
 
 \begin{figure}[!htb]
@@ -50,9 +48,7 @@ Parametry $k$ i $u_c$ (wzmocnienie oraz stałe napięcie na cewce) wyznaczymy mi
 
 \subsubsection{Pomiary stanów przejściowych cewki}
 
-Stałą czasową cewki $T$ można wyznaczyć obserwując odpowiedź skokową prądu.
-Zwalniamy PWM, zapinamy sterowanie (wypelnienie) na 50 procent i dzięki temu mamy skoki typowo napięciowe. Preskaler 4096.
-
+Stałą czasową cewki $T$ można wyznaczyć obserwując odpowiedź skokową prądu. Aby możliwe było przejście w tryb sterowania pseudo-napięciowego należy zwolnić sygnał sterujący PWM z wypełnieniem 50\%. W tym celu wykorzystano wbudowany preskaler z ustawioną wartością 4096.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.85]{img/identyfikacja_stala_narastanie_0245.png}
@@ -155,15 +151,12 @@ Wszystkie wyznaczone parametry przedstawia tabela \ref{tab:parametry_ident}.
   \begin{tabular}{| l | c | }
     \hline
     parametr 	& wartość \\ \hline
-    $k$ & ... \\ \hline
+    $k$ & $0.2607$ \\ \hline
     $T_{up}$ & $0.0245 s$  \\ \hline
 	$T_{down}$ & $0.023 s$  \\ \hline
-	$u_c$ & .. 	 \\ \hline
+	$u_c$ & $-0.0062 $ 	 \\ \hline
     $a$ 		  	& $0.0928$ \\ \hline
     $b$		  	& $0.0214$ \\ \hline
-    kolejny parametr 			& 2.5 \\ \hline
-    kolejny parametr 		& 0.52 \\
-    \hline
   \end{tabular}
   \caption{Parametry wyznaczone w identyfikacji obiektu}
   \label{tab:parametry_ident}
@@ -172,11 +165,22 @@ Wszystkie wyznaczone parametry przedstawia tabela \ref{tab:parametry_ident}.
 
 \subsection{Weryfikacja modelu}
 
-Porównanie obiektu i modelu 
+Poniżej przedstawiono porównanie zaproponowanego modelu obiektu wraz ze zidentyfikowanymi parametrami oraz rzeczywistego obiektu. Jak widać rozbieżności są dość spore, jednak w dłuższym horyzoncie czasowym model przyzwoicie oddaje zachowanie się rzeczywistego układu.
 
-[wykres stabilizacji PID obiektu]
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.75]{img/zgodnosc_1.png}
+\caption{Zachowanie obiektu i modelu - długi horyzont czasowy}
+\label{rys:pochodna_od_polozenia}
+\end{figure}
 
-[wykres porównania obiektu i modelu pod kontrolą PID]
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.75]{img/zgodnosc_2.png}
+\caption{Zachowanie obiektu i modelu - krótki horyzont czasowy}
+\label{rys:pochodna_od_polozenia}
+\end{figure}
 
 %\begin{figure}[!htb]
 %\centering
