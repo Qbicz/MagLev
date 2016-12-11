@@ -110,15 +110,22 @@ E = eig(A-BK) &
 
 Jak wspomniano na początku rozdziału, chcemy stabilizować układ w niezerowych punktach równowagi, gdzie sterowanie ma pewną ustaloną, niezerową wartość. W tym celu używamy prawa sterowania zaczerpniętego z pracy \cite{ReferenceTrackLQR}
 \begin{equation}
-u = -Kx + Lr
+u = -K_x x - K_r r
 \end{equation}
-gdzie $r$ jest wartością zadaną, a $L$ macierzą wag wartości zadanej.
+gdzie $r$ jest wartością zadaną, a $K_r$ macierzą wag sprzężenia w przód (feed-forward) od wartości zadanej. Wartość macierzy $K_r$ wyznacza się rozwiązując zmodyfikowane równanie Riccatiego\cite{ReferenceTrackLQR}.
 
 Stabilizacja modelu z regulatorem LQR dla linearyzacji w punkcie równowagi $ x_{0_{14}} = \begin{bmatrix} 0,014 \\
 0 \\
 0,024
 \end{bmatrix}
 $ została przedstawiona na wykresie \ref{img:model_LQR}.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.85]{img/model_nieliniowy_zLQR.PNG}
+\caption{Model nieliniowy z regulatorem LQ dostosowanym do stabilizacji w niezerowych punktach równowagi}
+\label{img:model_LQR}
+\end{figure}
 
 \begin{figure}[!htb]
 \centering
